@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Service.Models
 {
@@ -15,8 +16,15 @@ namespace Service.Models
         public int Paginas { get; set; } = 0;
         public int AnioPublicacion { get; set; } = 0;
         public string Portada { get; set; } = string.Empty;
-        [Required]
+        [Required]  
         [Column(TypeName = "text")]
         public string Sinopsis { get; set; } = string.Empty;
+
+        public bool IsDeleted { get; set; } = false;
+
+        public override string ToString()
+        {
+            return Titulo;
+        }
     }
 }
