@@ -12,57 +12,56 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AutoresController : ControllerBase
+    public class EditorialesController : ControllerBase
     {
         private readonly BiblioContext _context;
 
-        public AutoresController(BiblioContext context)
+        public EditorialesController(BiblioContext context)
         {
             _context = context;
         }
 
-        // GET: api/Autores
-        //AsNoTracking mejora el rendimiento en consultas de solo lectura. Como no seguimiento 
+        // GET: api/Editoriales
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Autor>>> GetAutores([FromQuery] string filtro="")
+        public async Task<ActionResult<IEnumerable<Editorial>>> GetEditoriales([FromQuery] string filtro = "")
         {
-            return await _context.Autores.AsNoTracking().Where(a=>a.Nombre.Contains(filtro)).ToListAsync();
+            return await _context.Editoriales.AsNoTracking().Where(e=>e.Nombre.Contains(filtro)).ToListAsync();
         }
 
         [HttpGet("deleteds")]
-        public async Task<ActionResult<IEnumerable<Autor>>> GetDeletedsAutores()
+        public async Task<ActionResult<IEnumerable<Editorial>>> GetDeletedsEditoriales()
         {
-            return await _context.Autores
+            return await _context.Editoriales
                 .AsNoTracking()
                 .IgnoreQueryFilters()
                 .Where(a => a.IsDeleted).ToListAsync();
         }
 
-        // GET: api/Autores/5
+        // GET: api/Editoriales/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Autor>> GetAutor(int id)
+        public async Task<ActionResult<Editorial>> GetEditorial(int id)
         {
-            var autor = await _context.Autores.AsNoTracking().FirstOrDefaultAsync(a=>a.Id.Equals(id));
+            var editorial = await _context.Editoriales.AsNoTracking().FirstOrDefaultAsync(e=>e.Id.Equals(id));
 
-            if (autor == null)
+            if (editorial == null)
             {
                 return NotFound();
             }
 
-            return autor;
+            return editorial;
         }
 
-        // PUT: api/Autores/5
+        // PUT: api/Editoriales/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAutor(int id, Autor autor)
+        public async Task<IActionResult> PutEditorial(int id, Editorial editorial)
         {
-            if (id != autor.Id)
+            if (id != editorial.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(autor).State = EntityState.Modified;
+            _context.Entry(editorial).State = EntityState.Modified;
 
             try
             {
@@ -70,7 +69,7 @@ namespace Backend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AutorExists(id))
+                if (!EditorialExists(id))
                 {
                     return NotFound();
                 }
@@ -83,54 +82,52 @@ namespace Backend.Controllers
             return NoContent();
         }
 
-        // POST: api/Autores
+        // POST: api/Editoriales
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Autor>> PostAutor(Autor autor)
+        public async Task<ActionResult<Editorial>> PostEditorial(Editorial editorial)
         {
-            _context.Autores.Add(autor);
+            _context.Editoriales.Add(editorial);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAutor", new { id = autor.Id }, autor);
+            return CreatedAtAction("GetEditorial", new { id = editorial.Id }, editorial);
         }
 
-        // DELETE: api/Autores/5
+        // DELETE: api/Editoriales/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAutor(int id)
+        public async Task<IActionResult> DeleteEditorial(int id)
         {
-            var autor = await _context.Autores.FindAsync(id);
-            if (autor == null)
+            var editorial = await _context.Editoriales.FindAsync(id);
+            if (editorial == null)
             {
                 return NotFound();
             }
-            autor.IsDeleted = true;
+            editorial.IsDeleted = true;
             //Impacta en memoria
-            _context.Autores.Update(autor);
+            _context.Editoriales.Update(editorial);
             //Aca recien impacta en la base de datos
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
 
-        //El restore tiene que ser un PUT porque estamos modificando un recurso existente. Cambia el isdeleted a false.
         [HttpPut("restore/{id}")]
-        public async Task<IActionResult> RestoreAutor(int id)
+        public async Task<IActionResult> RestoreEditorial(int id)
         {
-            var autor = await _context.Autores.IgnoreQueryFilters().FirstOrDefaultAsync(a=>a.Id.Equals(id));
-            if (autor == null)
+            var editorial = await _context.Editoriales.IgnoreQueryFilters().FirstOrDefaultAsync(e=>e.Id.Equals(id));
+            if (editorial == null)
             {
                 return NotFound();
             }
-            autor.IsDeleted = false;
+            editorial.IsDeleted = false;
             //Impacta en memoria
-            _context.Autores.Update(autor);
+            _context.Editoriales.Update(editorial);
             //Aca recien impacta en la base de datos
             await _context.SaveChangesAsync();
             return NoContent();
         }
-        private bool AutorExists(int id)
+        private bool EditorialExists(int id)
         {
-            return _context.Autores.Any(e => e.Id == id);
+            return _context.Editoriales.Any(e => e.Id == id);
         }
     }
 }

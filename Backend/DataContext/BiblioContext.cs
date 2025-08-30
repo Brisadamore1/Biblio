@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Service.Enums;
 using Service.Models;
 
 namespace Backend.DataContext;
@@ -39,39 +40,81 @@ public class BiblioContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        #region
-        //datos semillas autores
+        #region datos semillas de 10 autores
         modelBuilder.Entity<Autor>().HasData(
             new Autor { Id = 1, Nombre = "Gabriel García Márquez" },
             new Autor { Id = 2, Nombre = "Isabel Allende" },
             new Autor { Id = 3, Nombre = "Mario Vargas Llosa" },
             new Autor { Id = 4, Nombre = "Jorge Luis Borges" },
             new Autor { Id = 5, Nombre = "Pablo Neruda" },
-            new Autor { Id = 6, Nombre = "Julio Cortázar" }
+            new Autor { Id = 6, Nombre = "Julio Cortázar" },
+            new Autor { Id = 7, Nombre = "Laura Esquivel" },
+            new Autor { Id = 8, Nombre = "Carlos Fuentes" },
+            new Autor { Id = 9, Nombre = "Miguel de Cervantes" },
+            new Autor { Id = 10, Nombre = "Federico García Lorca" }
         );
+        #endregion
 
-        //datos semillas carreras
-        //modelBuilder.Entity<Carrera>().HasData(
-        //    new Carrera { Id = 1, Nombre = "Ingeniería en Sistemas" },
-        //    new Carrera { Id = 2, Nombre = "Administración de Empresas" },
-        //    new Carrera { Id = 3, Nombre = "Derecho" },
-        //    new Carrera { Id = 4, Nombre = "Medicina" },
-        //    new Carrera { Id = 5, Nombre = "Arquitectura" }
-        //);
+        #region datos semillas de 9 carreras
+        modelBuilder.Entity<Carrera>().HasData(
+            new Carrera { Id = 1, Nombre = "Profesorado de Educación Inicial" },
+            new Carrera { Id = 2, Nombre = "Profesorado de Educ. Secundaria en Cs de la Administración" },
+            new Carrera { Id = 3, Nombre = "Profesorado de Educ. Secundaria en Economía" },
+            new Carrera { Id = 4, Nombre = "Profesorado de Educación Tecnológica" },
+            new Carrera { Id = 5, Nombre = "Técnico Superior en Desarrollo de Software" },
+            new Carrera { Id = 6, Nombre = "Técnico Superior en Enfermería" },
+            new Carrera { Id = 7, Nombre = "Tecnicatura Superior en Gestión de Energías Renovables" },
+            new Carrera { Id = 8, Nombre = "Técnico Superior en Gestión de las Organizaciones" },
+            new Carrera { Id = 9, Nombre = "Técnico Superior en Soporte de Infraestructura en Tecnologías de la Información" }
+        );
+        #endregion
 
-        //datos semillas editoriales
+        #region datos semillas de 10 editoriales 
         modelBuilder.Entity<Editorial>().HasData(
             new Editorial { Id = 1, Nombre = "Penguin Random House" },
             new Editorial { Id = 2, Nombre = "HarperCollins" },
             new Editorial { Id = 3, Nombre = "Simon & Schuster" },
             new Editorial { Id = 4, Nombre = "Hachette Livre" },
-            new Editorial { Id = 5, Nombre = "Macmillan Publishers" }
+            new Editorial { Id = 5, Nombre = "Macmillan Publishers" },
+            new Editorial { Id = 6, Nombre = "Grupo Planeta" },
+            new Editorial { Id = 7, Nombre = "Santillana" },
+            new Editorial { Id = 8, Nombre = "Alfaguara" },
+            new Editorial { Id = 9, Nombre = "Wiley" },
+            new Editorial { Id = 10, Nombre = "Pearson" }
         );
+        #endregion
 
-        //datos semillas ejemplares
+        #region datos semillas de 5 ejemplares
+        modelBuilder.Entity<Ejemplar>().HasData(
+            new Ejemplar { 
+                Id = 1, 
+                LibroId = 1, 
+                Disponible= true, 
+                Estado = EstadoEnum.Excelente },
+            new Ejemplar { 
+                Id = 2,
+                LibroId = 2, 
+                Disponible= true, 
+                Estado = EstadoEnum.MuyBueno },
+            new Ejemplar { 
+                Id = 3,
+                LibroId = 3, 
+                Disponible= true, 
+                Estado = EstadoEnum.Bueno },
+            new Ejemplar { 
+                Id = 4,
+                LibroId = 4, 
+                Disponible= true, 
+                Estado = EstadoEnum.MuyBueno },
+            new Ejemplar { 
+                Id = 5,
+                LibroId = 5, 
+                Disponible= true, 
+                Estado = EstadoEnum.Excelente
+            });
+        #endregion
 
-
-        //datos semillas generos
+        #region datos semillas de 10 generos
         modelBuilder.Entity<Genero>().HasData(
             new Genero { Id = 1, Nombre = "Ficción" },
             new Genero { Id = 2, Nombre = "No Ficción" },
@@ -79,18 +122,109 @@ public class BiblioContext : DbContext
             new Genero { Id = 4, Nombre = "Fantasia" },
             new Genero { Id = 5, Nombre = "Misterio" },
             new Genero { Id = 6, Nombre = "Romance" },
-            new Genero { Id = 7, Nombre = "Terror" }
+            new Genero { Id = 7, Nombre = "Terror" },
+            new Genero { Id = 8, Nombre = "Historia" },
+            new Genero { Id = 9, Nombre = "Biografía" },
+            new Genero { Id = 10, Nombre = "Poesía" }
         );
+        #endregion
 
-        //datos semillas libro
-        //modelBuilder.Entity<Libro>().HasData(
-        //    new Libro { Id = 1, Titulo = "Cien Años de Soledad", Descripcion = "Novela emblemática del realismo mágico", EditorialId = 1, Paginas = 417, AnioPublicacion = 1967, Portada = "", Sinopsis = "La historia de la familia Buendía en el pueblo ficticio de Macondo." },
-        //    new Libro { Id = 2, Titulo = "La Casa de los Espíritus", Descripcion = "Novela que mezcla lo real y lo fantástico", EditorialId = 2, Paginas = 448, AnioPublicacion = 1982, Portada = "", Sinopsis = "La saga de la familia Trueba a lo largo de varias generaciones." },
-        //    new Libro { Id = 3, Titulo = "La Ciudad y los Perros", Descripcion = "Novela sobre la vida en un colegio militar", EditorialId = 3, Paginas = 320, AnioPublicacion = 1963, Portada = "", Sinopsis = "Las experiencias de un grupo de cadetes en un colegio militar en Lima." },
-        //    new Libro { Id = 4, Titulo = "Ficciones", Descripcion = "Colección de cuentos fantásticos y filosóficos", EditorialId = 4, Paginas = 224, AnioPublicacion = 1944, Portada = "", Sinopsis = "Una serie de relatos que exploran temas como la realidad y la identidad." },
-        //    new Libro { Id = 5, Titulo = "Veinte Poemas de Amor y una Canción Desesperada", Descripcion = "Colección de poemas románticos", EditorialId = 5, Paginas = 80, AnioPublicacion = 1924, Portada = "", Sinopsis = "Poemas que expresan el amor y la pasión." }
-        //);
+        #region datos semillas de 10 libros
+        modelBuilder.Entity<Libro>().HasData(
+            new Libro { 
+                Id = 1, 
+                Titulo = "Cien Años de Soledad", 
+                Descripcion = "Novela emblemática del realismo mágico", 
+                EditorialId = 1, 
+                Paginas = 417, 
+                AnioPublicacion = 1967, 
+                Portada = "", 
+                Sinopsis = "La historia de la familia Buendía en el pueblo ficticio de Macondo." },
+            new Libro { 
+                Id = 2, 
+                Titulo = "La Casa de los Espíritus", 
+                Descripcion = "Novela que mezcla lo real y lo fantástico", 
+                EditorialId = 2, 
+                Paginas = 448, 
+                AnioPublicacion = 1982, 
+                Portada = "", 
+                Sinopsis = "La saga de la familia Trueba a lo largo de varias generaciones." },
+            new Libro { 
+                Id = 3, 
+                Titulo = "La Ciudad y los Perros", 
+                Descripcion = "Novela sobre la vida en un colegio militar", 
+                EditorialId = 3, 
+                Paginas = 320, 
+                AnioPublicacion = 1963, 
+                Portada = "", 
+                Sinopsis = "Las experiencias de un grupo de cadetes en un colegio militar en Lima." },
+            new Libro { 
+                Id = 4, 
+                Titulo = "Ficciones", 
+                Descripcion = "Colección de cuentos fantásticos y filosóficos", 
+                EditorialId = 4, 
+                Paginas = 224, 
+                AnioPublicacion = 1944, 
+                Portada = "", 
+                Sinopsis = "Una serie de relatos que exploran temas como la realidad y la identidad." },
+            new Libro { 
+                Id = 5, 
+                Titulo = "Veinte Poemas de Amor y una Canción Desesperada", 
+                Descripcion = "Colección de poemas románticos", 
+                EditorialId = 5, 
+                Paginas = 80, 
+                AnioPublicacion = 1924, 
+                Portada = "", 
+                Sinopsis = "Poemas que expresan el amor y la pasión." },
+            new Libro { 
+                Id = 6, 
+                Titulo = "Rayuela", 
+                Descripcion = "Novela experimental y vanguardista", 
+                EditorialId = 6, 
+                Paginas = 576, 
+                AnioPublicacion = 1963, 
+                Portada = "", 
+                Sinopsis = "La historia de Horacio Oliveira y su búsqueda de sentido en la vida." },
+            new Libro { 
+                Id = 7, 
+                Titulo = "Como Agua para Chocolate", 
+                Descripcion = "Novela que mezcla la cocina y el amor", 
+                EditorialId = 7, 
+                Paginas = 256, 
+                AnioPublicacion = 1989, 
+                Portada = "", 
+                Sinopsis = "La historia de Tita y su amor prohibido." },
+            new Libro { 
+                Id = 8, 
+                Titulo = "La Sombra del Viento", 
+                Descripcion = "Novela de misterio y aventura", 
+                EditorialId = 8, 
+                Paginas = 576, 
+                AnioPublicacion = 2001, 
+                Portada = "", 
+                Sinopsis = "La historia de Daniel y su búsqueda del autor Julián Carax." },
+            new Libro { 
+                Id = 9, 
+                Titulo = "Don Quijote de la Mancha", 
+                Descripcion = "Novela clásica de la literatura española", 
+                EditorialId = 9, 
+                Paginas = 863, 
+                AnioPublicacion = 1605, 
+                Portada = "", 
+                Sinopsis = "Las aventuras del ingenioso hidalgo Don Quijote y su fiel escudero Sancho Panza." },
+            new Libro { 
+                Id = 10, 
+                Titulo = "La Casa de Bernarda Alba", 
+                Descripcion = "Obra de teatro sobre la opresión y el deseo", 
+                EditorialId = 10, 
+                Paginas = 96, 
+                AnioPublicacion = 1936, 
+                Portada = "", 
+                Sinopsis = "La historia de Bernarda Alba y sus cinco hijas en una casa dominada por la represión." }
+        );
+        #endregion
 
+        #region
         //datos semillas libroautor
         //modelBuilder.Entity<LibroAutor>().HasData(
         //    new LibroAutor { Id = 1, LibroId = 1, AutorId = 1 },
@@ -112,7 +246,7 @@ public class BiblioContext : DbContext
         //datos semillas prestamo
         #endregion
 
-        //configuramos los quety filters para que no trigan los registros marcados como eliminados
+        //configuramos los query filters para que no trigan los registros marcados como eliminados. Son los mecanimos por el cual se indica que un registro esta eliminado sin borrarlo fisicamente de la base de datos.
         modelBuilder.Entity<Autor>().HasQueryFilter(a => !a.IsDeleted);
         modelBuilder.Entity<Carrera>().HasQueryFilter(c => !c.IsDeleted);
         modelBuilder.Entity<Editorial>().HasQueryFilter(e => !e.IsDeleted);
