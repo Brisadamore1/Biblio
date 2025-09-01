@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class agregueControladores : Migration
+    public partial class creacioninicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -344,6 +344,108 @@ namespace Backend.Migrations
                     { 8, false, "Historia" },
                     { 9, false, "Biografía" },
                     { 10, false, "Poesía" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Usuarios",
+                columns: new[] { "Id", "Dni", "Domicilio", "Email", "FechaRegistracion", "IsDeleted", "Nombre", "Observacion", "Password", "Telefono", "TipoRol" },
+                values: new object[,]
+                {
+                    { 1, "12345678", "Calle Falsa 123", "juanperez@gmail.com", new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(509), false, "Juan Pérez", "", "password123", "555-1234", 0 },
+                    { 2, "87654321", "Avenida Siempre Viva 456", "mariagomez@gmail.com", new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(513), false, "María Gómez", "", "password123", "555-5678", 0 },
+                    { 3, "11223344", "Boulevard Central 789", "carlosrodriguez@gmail.com", new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(515), false, "Carlos Rodríguez", "", "password123", "555-9012", 2 },
+                    { 4, "44332211", "Plaza Mayor 101", "martinezana@gmail.com", new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(516), false, "Ana Martínez", "", "password123", "555-3456", 0 },
+                    { 5, "55667788", "Calle del Sol 202", "luisfernandez@gmail.com", new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(518), false, "Luis Fernández", "", "password123", "555-7890", 2 },
+                    { 6, "99887766", "Avenida de la Luna 303", "sofialopez@gmail.com", new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(519), false, "Sofía López", "", "password123", "555-2345", 0 },
+                    { 7, "66778899", "Calle de las Flores 404", "miguelsanchez@gmail.com", new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(520), false, "Miguel Sánchez", "", "password123", "555-6789", 0 },
+                    { 8, "33445566", "Avenida del Río 505", "ramirezlaura@gmail.com", new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(522), false, "Laura Ramírez", "", "password123", "555-0123", 2 },
+                    { 9, "22113344", "Plaza de la Ciudad 606", "torresdiego@gmail.com", new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(524), false, "Diego Torres", "", "password123", "555-4567", 0 },
+                    { 10, "77889900", "Calle del Mercado 707", "elenaruiz@gmail.com", new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(525), false, "Elena Ruiz", "", "password123", "555-8901", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Libros",
+                columns: new[] { "Id", "AnioPublicacion", "Descripcion", "EditorialId", "IsDeleted", "Paginas", "Portada", "Sinopsis", "Titulo" },
+                values: new object[,]
+                {
+                    { 1, 1967, "Novela emblemática del realismo mágico", 1, false, 417, "", "La historia de la familia Buendía en el pueblo ficticio de Macondo.", "Cien Años de Soledad" },
+                    { 2, 1982, "Novela que mezcla lo real y lo fantástico", 2, false, 448, "", "La saga de la familia Trueba a lo largo de varias generaciones.", "La Casa de los Espíritus" },
+                    { 3, 1963, "Novela sobre la vida en un colegio militar", 3, false, 320, "", "Las experiencias de un grupo de cadetes en un colegio militar en Lima.", "La Ciudad y los Perros" },
+                    { 4, 1944, "Colección de cuentos fantásticos y filosóficos", 4, false, 224, "", "Una serie de relatos que exploran temas como la realidad y la identidad.", "Ficciones" },
+                    { 5, 1924, "Colección de poemas románticos", 5, false, 80, "", "Poemas que expresan el amor y la pasión.", "Veinte Poemas de Amor y una Canción Desesperada" },
+                    { 6, 1963, "Novela experimental y vanguardista", 6, false, 576, "", "La historia de Horacio Oliveira y su búsqueda de sentido en la vida.", "Rayuela" },
+                    { 7, 1989, "Novela que mezcla la cocina y el amor", 7, false, 256, "", "La historia de Tita y su amor prohibido.", "Como Agua para Chocolate" },
+                    { 8, 2001, "Novela de misterio y aventura", 8, false, 576, "", "La historia de Daniel y su búsqueda del autor Julián Carax.", "La Sombra del Viento" },
+                    { 9, 1605, "Novela clásica de la literatura española", 9, false, 863, "", "Las aventuras del ingenioso hidalgo Don Quijote y su fiel escudero Sancho Panza.", "Don Quijote de la Mancha" },
+                    { 10, 1936, "Obra de teatro sobre la opresión y el deseo", 10, false, 96, "", "La historia de Bernarda Alba y sus cinco hijas en una casa dominada por la represión.", "La Casa de Bernarda Alba" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UsuarioCarreras",
+                columns: new[] { "Id", "CarreraId", "IsDeleted", "UsuarioId" },
+                values: new object[,]
+                {
+                    { 1, 1, false, 1 },
+                    { 2, 2, false, 2 },
+                    { 3, 3, false, 3 },
+                    { 4, 4, false, 4 },
+                    { 5, 5, false, 5 },
+                    { 6, 6, false, 6 },
+                    { 7, 7, false, 7 },
+                    { 8, 8, false, 8 },
+                    { 9, 9, false, 9 },
+                    { 10, 1, false, 10 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Ejemplares",
+                columns: new[] { "Id", "Disponible", "Estado", "IsDeleted", "LibroId" },
+                values: new object[,]
+                {
+                    { 1, true, 0, false, 1 },
+                    { 2, true, 1, false, 2 },
+                    { 3, true, 2, false, 3 },
+                    { 4, true, 1, false, 4 },
+                    { 5, true, 0, false, 5 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "LibroAutores",
+                columns: new[] { "Id", "AutorId", "IsDeleted", "LibroId" },
+                values: new object[,]
+                {
+                    { 1, 1, false, 1 },
+                    { 2, 2, false, 2 },
+                    { 3, 3, false, 3 },
+                    { 4, 4, false, 4 },
+                    { 5, 5, false, 5 },
+                    { 6, 6, false, 6 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "LibroGeneros",
+                columns: new[] { "Id", "GeneroId", "IsDeleted", "LibroId" },
+                values: new object[,]
+                {
+                    { 1, 1, false, 1 },
+                    { 2, 1, false, 2 },
+                    { 3, 1, false, 3 },
+                    { 4, 4, false, 4 },
+                    { 5, 6, false, 5 },
+                    { 6, 4, false, 6 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Prestamos",
+                columns: new[] { "Id", "EjemplarId", "FechaDevolucion", "FechaPrestamo", "IsDeleted", "UsuarioId" },
+                values: new object[,]
+                {
+                    { 1, 2, new DateTime(2025, 9, 14, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(453), new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(452), false, 2 },
+                    { 2, 3, new DateTime(2025, 9, 14, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(464), new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(464), false, 3 },
+                    { 3, 4, new DateTime(2025, 9, 14, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(467), new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(466), false, 4 },
+                    { 4, 5, new DateTime(2025, 9, 14, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(469), new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(469), false, 5 },
+                    { 5, 1, new DateTime(2025, 9, 14, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(472), new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(471), false, 1 },
+                    { 6, 1, new DateTime(2025, 9, 14, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(474), new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(473), false, 6 }
                 });
 
             migrationBuilder.CreateIndex(

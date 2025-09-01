@@ -224,26 +224,199 @@ public class BiblioContext : DbContext
         );
         #endregion
 
-        #region
-        //datos semillas libroautor
-        //modelBuilder.Entity<LibroAutor>().HasData(
-        //    new LibroAutor { Id = 1, LibroId = 1, AutorId = 1 },
-        //    new LibroAutor { Id = 2, LibroId = 2, AutorId = 2 },
-        //    new LibroAutor { Id = 3, LibroId = 3, AutorId = 3 },
-        //    new LibroAutor { Id = 4, LibroId = 4, AutorId = 4 },
-        //    new LibroAutor { Id = 5, LibroId = 5, AutorId = 5 }
-        //);
+        # region datos semillas de 6 libroautor
+        modelBuilder.Entity<LibroAutor>().HasData(
+            new LibroAutor { Id = 1, LibroId = 1, AutorId = 1 },
+            new LibroAutor { Id = 2, LibroId = 2, AutorId = 2 },
+            new LibroAutor { Id = 3, LibroId = 3, AutorId = 3 },
+            new LibroAutor { Id = 4, LibroId = 4, AutorId = 4 },
+            new LibroAutor { Id = 5, LibroId = 5, AutorId = 5 },
+            new LibroAutor { Id = 6, LibroId = 6, AutorId = 6 }
+        );
+        #endregion
 
-        //datos semillas librogenero
-        //modelBuilder.Entity<LibroGenero>().HasData(
-        //    new LibroGenero { Id = 1, LibroId = 1, GeneroId = 1 },
-        //    new LibroGenero { Id = 2, LibroId = 2, GeneroId = 1 },
-        //    new LibroGenero { Id = 3, LibroId = 3, GeneroId = 1 },
-        //    new LibroGenero { Id = 4, LibroId = 4, GeneroId = 4 },
-        //    new LibroGenero { Id = 5, LibroId = 5, GeneroId = 6 }
-        //);
+        #region datos semillas de 6 librogenero
+        modelBuilder.Entity<LibroGenero>().HasData(
+            new LibroGenero { Id = 1, LibroId = 1, GeneroId = 1 },
+            new LibroGenero { Id = 2, LibroId = 2, GeneroId = 1 },
+            new LibroGenero { Id = 3, LibroId = 3, GeneroId = 1 },
+            new LibroGenero { Id = 4, LibroId = 4, GeneroId = 4 },
+            new LibroGenero { Id = 5, LibroId = 5, GeneroId = 6 },
+            new LibroGenero { Id = 6, LibroId = 6, GeneroId = 4 }
+        );
 
-        //datos semillas prestamo
+        #endregion
+
+        #region datos semillas de 6 prestamos
+        modelBuilder.Entity<Prestamo>().HasData(
+        new Prestamo
+        {
+            Id = 1,
+            UsuarioId = 2,
+            EjemplarId = 2,
+            FechaPrestamo = DateTime.Now,
+            FechaDevolucion = DateTime.Now.AddDays(14)
+        },
+        new Prestamo
+        {
+            Id = 2,
+            UsuarioId = 3,
+            EjemplarId = 3,
+            FechaPrestamo = DateTime.Now,
+            FechaDevolucion = DateTime.Now.AddDays(14)
+        },
+        new Prestamo
+        {
+            Id = 3,
+            UsuarioId = 4,
+            EjemplarId = 4,
+            FechaPrestamo = DateTime.Now,
+            FechaDevolucion = DateTime.Now.AddDays(14)
+        },
+        new Prestamo
+        {
+            Id = 4,
+            UsuarioId = 5,
+            EjemplarId = 5,
+            FechaPrestamo = DateTime.Now,
+            FechaDevolucion = DateTime.Now.AddDays(14)
+        },
+        new Prestamo
+        {
+            Id = 5,
+            UsuarioId = 1,
+            EjemplarId = 1,
+            FechaPrestamo = DateTime.Now,
+            FechaDevolucion = DateTime.Now.AddDays(14)
+        },
+        new Prestamo
+        {
+            Id = 6,
+            UsuarioId = 6,
+            EjemplarId = 1,
+            FechaPrestamo = DateTime.Now,
+            FechaDevolucion = DateTime.Now.AddDays(14)
+        });
+        #endregion
+
+        #region datos semillas de 10 usuario
+        modelBuilder.Entity<Usuario>().HasData(
+            new Usuario { 
+                Id = 1, 
+                Nombre = "Juan Pérez", 
+                Email = "juanperez@gmail.com", 
+                Password = "password123", 
+                TipoRol = TipoRolEnum.Alumno, 
+                Dni = "12345678", 
+                Domicilio = "Calle Falsa 123", 
+                Telefono = "555-1234", 
+                Observacion = "" },
+            new Usuario { 
+                Id = 2, 
+                Nombre = "María Gómez", 
+                Email = "mariagomez@gmail.com", 
+                Password = "password123", 
+                TipoRol = TipoRolEnum.Alumno, 
+                Dni = "87654321", 
+                Domicilio = "Avenida Siempre Viva 456", 
+                Telefono = "555-5678", 
+                Observacion = "" },
+            new Usuario { 
+                Id = 3, 
+                Nombre = "Carlos Rodríguez", 
+                Email = "carlosrodriguez@gmail.com", 
+                Password = "password123", 
+                TipoRol = TipoRolEnum.Bibliotecario, 
+                Dni = "11223344", 
+                Domicilio = "Boulevard Central 789", 
+                Telefono = "555-9012", 
+                Observacion = "" },
+            new Usuario { 
+                Id = 4, 
+                Nombre = "Ana Martínez", 
+                Email = "martinezana@gmail.com", 
+                Password = "password123", 
+                TipoRol = TipoRolEnum.Alumno, 
+                Dni = "44332211", 
+                Domicilio = "Plaza Mayor 101", 
+                Telefono = "555-3456", 
+                Observacion = "" },
+            new Usuario { 
+                Id = 5, 
+                Nombre = "Luis Fernández", 
+                Email = "luisfernandez@gmail.com", 
+                Password = "password123", 
+                TipoRol = TipoRolEnum.Bibliotecario, 
+                Dni = "55667788", 
+                Domicilio = "Calle del Sol 202", 
+                Telefono = "555-7890", 
+                Observacion = "" },
+            new Usuario { 
+                Id = 6, 
+                Nombre = "Sofía López", 
+                Email = "sofialopez@gmail.com", 
+                Password = "password123", 
+                TipoRol = TipoRolEnum.Alumno, 
+                Dni = "99887766", 
+                Domicilio = "Avenida de la Luna 303", 
+                Telefono = "555-2345", 
+                Observacion = "" },
+            new Usuario { 
+                Id = 7, 
+                Nombre = "Miguel Sánchez", 
+                Email = "miguelsanchez@gmail.com", 
+                Password = "password123", 
+                TipoRol = TipoRolEnum.Alumno, 
+                Dni = "66778899", 
+                Domicilio = "Calle de las Flores 404", 
+                Telefono = "555-6789", 
+                Observacion = "" },
+            new Usuario { 
+                Id = 8, 
+                Nombre = "Laura Ramírez", 
+                Email = "ramirezlaura@gmail.com", 
+                Password = "password123", 
+                TipoRol = TipoRolEnum.Bibliotecario, 
+                Dni = "33445566", 
+                Domicilio = "Avenida del Río 505", 
+                Telefono = "555-0123", 
+                Observacion = "" },
+            new Usuario { 
+                Id = 9, 
+                Nombre = "Diego Torres",
+                Email = "torresdiego@gmail.com", 
+                Password = "password123", 
+                TipoRol = TipoRolEnum.Alumno, 
+                Dni = "22113344", 
+                Domicilio = "Plaza de la Ciudad 606", 
+                Telefono = "555-4567", 
+                Observacion = "" },
+            new Usuario { 
+                Id = 10, 
+                Nombre = "Elena Ruiz", 
+                Email = "elenaruiz@gmail.com", 
+                Password = "password123", 
+                TipoRol = TipoRolEnum.Bibliotecario, 
+                Dni = "77889900", 
+                Domicilio = "Calle del Mercado 707", 
+                Telefono = "555-8901", 
+                Observacion = "" }
+            );
+        #endregion
+
+        #region datos semillas de 10 usuariocarrera
+        modelBuilder.Entity<UsuarioCarrera>().HasData(
+            new UsuarioCarrera { Id = 1, UsuarioId = 1, CarreraId = 1 },
+            new UsuarioCarrera { Id = 2, UsuarioId = 2, CarreraId = 2 },
+            new UsuarioCarrera { Id = 3, UsuarioId = 3, CarreraId = 3 },
+            new UsuarioCarrera { Id = 4, UsuarioId = 4, CarreraId = 4 },
+            new UsuarioCarrera { Id = 5, UsuarioId = 5, CarreraId = 5 },
+            new UsuarioCarrera { Id = 6, UsuarioId = 6, CarreraId = 6 },
+            new UsuarioCarrera { Id = 7, UsuarioId = 7, CarreraId = 7 },
+            new UsuarioCarrera { Id = 8, UsuarioId = 8, CarreraId = 8 },
+            new UsuarioCarrera { Id = 9, UsuarioId = 9, CarreraId = 9 },
+            new UsuarioCarrera { Id = 10, UsuarioId = 10, CarreraId = 1 }
+        );
         #endregion
 
         //configuramos los query filters para que no trigan los registros marcados como eliminados. Son los mecanimos por el cual se indica que un registro esta eliminado sin borrarlo fisicamente de la base de datos.

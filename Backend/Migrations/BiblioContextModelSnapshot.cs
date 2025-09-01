@@ -287,6 +287,48 @@ namespace Backend.Migrations
                     b.HasIndex("LibroId");
 
                     b.ToTable("Ejemplares");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Disponible = true,
+                            Estado = 0,
+                            IsDeleted = false,
+                            LibroId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Disponible = true,
+                            Estado = 1,
+                            IsDeleted = false,
+                            LibroId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Disponible = true,
+                            Estado = 2,
+                            IsDeleted = false,
+                            LibroId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Disponible = true,
+                            Estado = 1,
+                            IsDeleted = false,
+                            LibroId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Disponible = true,
+                            Estado = 0,
+                            IsDeleted = false,
+                            LibroId = 5
+                        });
                 });
 
             modelBuilder.Entity("Service.Models.Genero", b =>
@@ -412,6 +454,128 @@ namespace Backend.Migrations
                     b.HasIndex("EditorialId");
 
                     b.ToTable("Libros");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AnioPublicacion = 1967,
+                            Descripcion = "Novela emblemática del realismo mágico",
+                            EditorialId = 1,
+                            IsDeleted = false,
+                            Paginas = 417,
+                            Portada = "",
+                            Sinopsis = "La historia de la familia Buendía en el pueblo ficticio de Macondo.",
+                            Titulo = "Cien Años de Soledad"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AnioPublicacion = 1982,
+                            Descripcion = "Novela que mezcla lo real y lo fantástico",
+                            EditorialId = 2,
+                            IsDeleted = false,
+                            Paginas = 448,
+                            Portada = "",
+                            Sinopsis = "La saga de la familia Trueba a lo largo de varias generaciones.",
+                            Titulo = "La Casa de los Espíritus"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AnioPublicacion = 1963,
+                            Descripcion = "Novela sobre la vida en un colegio militar",
+                            EditorialId = 3,
+                            IsDeleted = false,
+                            Paginas = 320,
+                            Portada = "",
+                            Sinopsis = "Las experiencias de un grupo de cadetes en un colegio militar en Lima.",
+                            Titulo = "La Ciudad y los Perros"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AnioPublicacion = 1944,
+                            Descripcion = "Colección de cuentos fantásticos y filosóficos",
+                            EditorialId = 4,
+                            IsDeleted = false,
+                            Paginas = 224,
+                            Portada = "",
+                            Sinopsis = "Una serie de relatos que exploran temas como la realidad y la identidad.",
+                            Titulo = "Ficciones"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AnioPublicacion = 1924,
+                            Descripcion = "Colección de poemas románticos",
+                            EditorialId = 5,
+                            IsDeleted = false,
+                            Paginas = 80,
+                            Portada = "",
+                            Sinopsis = "Poemas que expresan el amor y la pasión.",
+                            Titulo = "Veinte Poemas de Amor y una Canción Desesperada"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AnioPublicacion = 1963,
+                            Descripcion = "Novela experimental y vanguardista",
+                            EditorialId = 6,
+                            IsDeleted = false,
+                            Paginas = 576,
+                            Portada = "",
+                            Sinopsis = "La historia de Horacio Oliveira y su búsqueda de sentido en la vida.",
+                            Titulo = "Rayuela"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AnioPublicacion = 1989,
+                            Descripcion = "Novela que mezcla la cocina y el amor",
+                            EditorialId = 7,
+                            IsDeleted = false,
+                            Paginas = 256,
+                            Portada = "",
+                            Sinopsis = "La historia de Tita y su amor prohibido.",
+                            Titulo = "Como Agua para Chocolate"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AnioPublicacion = 2001,
+                            Descripcion = "Novela de misterio y aventura",
+                            EditorialId = 8,
+                            IsDeleted = false,
+                            Paginas = 576,
+                            Portada = "",
+                            Sinopsis = "La historia de Daniel y su búsqueda del autor Julián Carax.",
+                            Titulo = "La Sombra del Viento"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AnioPublicacion = 1605,
+                            Descripcion = "Novela clásica de la literatura española",
+                            EditorialId = 9,
+                            IsDeleted = false,
+                            Paginas = 863,
+                            Portada = "",
+                            Sinopsis = "Las aventuras del ingenioso hidalgo Don Quijote y su fiel escudero Sancho Panza.",
+                            Titulo = "Don Quijote de la Mancha"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AnioPublicacion = 1936,
+                            Descripcion = "Obra de teatro sobre la opresión y el deseo",
+                            EditorialId = 10,
+                            IsDeleted = false,
+                            Paginas = 96,
+                            Portada = "",
+                            Sinopsis = "La historia de Bernarda Alba y sus cinco hijas en una casa dominada por la represión.",
+                            Titulo = "La Casa de Bernarda Alba"
+                        });
                 });
 
             modelBuilder.Entity("Service.Models.LibroAutor", b =>
@@ -438,6 +602,50 @@ namespace Backend.Migrations
                     b.HasIndex("LibroId");
 
                     b.ToTable("LibroAutores");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AutorId = 1,
+                            IsDeleted = false,
+                            LibroId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AutorId = 2,
+                            IsDeleted = false,
+                            LibroId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AutorId = 3,
+                            IsDeleted = false,
+                            LibroId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AutorId = 4,
+                            IsDeleted = false,
+                            LibroId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AutorId = 5,
+                            IsDeleted = false,
+                            LibroId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AutorId = 6,
+                            IsDeleted = false,
+                            LibroId = 6
+                        });
                 });
 
             modelBuilder.Entity("Service.Models.LibroGenero", b =>
@@ -464,6 +672,50 @@ namespace Backend.Migrations
                     b.HasIndex("LibroId");
 
                     b.ToTable("LibroGeneros");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GeneroId = 1,
+                            IsDeleted = false,
+                            LibroId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GeneroId = 1,
+                            IsDeleted = false,
+                            LibroId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            GeneroId = 1,
+                            IsDeleted = false,
+                            LibroId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            GeneroId = 4,
+                            IsDeleted = false,
+                            LibroId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            GeneroId = 6,
+                            IsDeleted = false,
+                            LibroId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            GeneroId = 4,
+                            IsDeleted = false,
+                            LibroId = 6
+                        });
                 });
 
             modelBuilder.Entity("Service.Models.Prestamo", b =>
@@ -496,6 +748,62 @@ namespace Backend.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Prestamos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EjemplarId = 2,
+                            FechaDevolucion = new DateTime(2025, 9, 14, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(453),
+                            FechaPrestamo = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(452),
+                            IsDeleted = false,
+                            UsuarioId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EjemplarId = 3,
+                            FechaDevolucion = new DateTime(2025, 9, 14, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(464),
+                            FechaPrestamo = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(464),
+                            IsDeleted = false,
+                            UsuarioId = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            EjemplarId = 4,
+                            FechaDevolucion = new DateTime(2025, 9, 14, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(467),
+                            FechaPrestamo = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(466),
+                            IsDeleted = false,
+                            UsuarioId = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            EjemplarId = 5,
+                            FechaDevolucion = new DateTime(2025, 9, 14, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(469),
+                            FechaPrestamo = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(469),
+                            IsDeleted = false,
+                            UsuarioId = 5
+                        },
+                        new
+                        {
+                            Id = 5,
+                            EjemplarId = 1,
+                            FechaDevolucion = new DateTime(2025, 9, 14, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(472),
+                            FechaPrestamo = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(471),
+                            IsDeleted = false,
+                            UsuarioId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            EjemplarId = 1,
+                            FechaDevolucion = new DateTime(2025, 9, 14, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(474),
+                            FechaPrestamo = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(473),
+                            IsDeleted = false,
+                            UsuarioId = 6
+                        });
                 });
 
             modelBuilder.Entity("Service.Models.Usuario", b =>
@@ -546,6 +854,148 @@ namespace Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Dni = "12345678",
+                            Domicilio = "Calle Falsa 123",
+                            Email = "juanperez@gmail.com",
+                            FechaRegistracion = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(509),
+                            IsDeleted = false,
+                            Nombre = "Juan Pérez",
+                            Observacion = "",
+                            Password = "password123",
+                            Telefono = "555-1234",
+                            TipoRol = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Dni = "87654321",
+                            Domicilio = "Avenida Siempre Viva 456",
+                            Email = "mariagomez@gmail.com",
+                            FechaRegistracion = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(513),
+                            IsDeleted = false,
+                            Nombre = "María Gómez",
+                            Observacion = "",
+                            Password = "password123",
+                            Telefono = "555-5678",
+                            TipoRol = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Dni = "11223344",
+                            Domicilio = "Boulevard Central 789",
+                            Email = "carlosrodriguez@gmail.com",
+                            FechaRegistracion = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(515),
+                            IsDeleted = false,
+                            Nombre = "Carlos Rodríguez",
+                            Observacion = "",
+                            Password = "password123",
+                            Telefono = "555-9012",
+                            TipoRol = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Dni = "44332211",
+                            Domicilio = "Plaza Mayor 101",
+                            Email = "martinezana@gmail.com",
+                            FechaRegistracion = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(516),
+                            IsDeleted = false,
+                            Nombre = "Ana Martínez",
+                            Observacion = "",
+                            Password = "password123",
+                            Telefono = "555-3456",
+                            TipoRol = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Dni = "55667788",
+                            Domicilio = "Calle del Sol 202",
+                            Email = "luisfernandez@gmail.com",
+                            FechaRegistracion = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(518),
+                            IsDeleted = false,
+                            Nombre = "Luis Fernández",
+                            Observacion = "",
+                            Password = "password123",
+                            Telefono = "555-7890",
+                            TipoRol = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Dni = "99887766",
+                            Domicilio = "Avenida de la Luna 303",
+                            Email = "sofialopez@gmail.com",
+                            FechaRegistracion = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(519),
+                            IsDeleted = false,
+                            Nombre = "Sofía López",
+                            Observacion = "",
+                            Password = "password123",
+                            Telefono = "555-2345",
+                            TipoRol = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Dni = "66778899",
+                            Domicilio = "Calle de las Flores 404",
+                            Email = "miguelsanchez@gmail.com",
+                            FechaRegistracion = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(520),
+                            IsDeleted = false,
+                            Nombre = "Miguel Sánchez",
+                            Observacion = "",
+                            Password = "password123",
+                            Telefono = "555-6789",
+                            TipoRol = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Dni = "33445566",
+                            Domicilio = "Avenida del Río 505",
+                            Email = "ramirezlaura@gmail.com",
+                            FechaRegistracion = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(522),
+                            IsDeleted = false,
+                            Nombre = "Laura Ramírez",
+                            Observacion = "",
+                            Password = "password123",
+                            Telefono = "555-0123",
+                            TipoRol = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Dni = "22113344",
+                            Domicilio = "Plaza de la Ciudad 606",
+                            Email = "torresdiego@gmail.com",
+                            FechaRegistracion = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(524),
+                            IsDeleted = false,
+                            Nombre = "Diego Torres",
+                            Observacion = "",
+                            Password = "password123",
+                            Telefono = "555-4567",
+                            TipoRol = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Dni = "77889900",
+                            Domicilio = "Calle del Mercado 707",
+                            Email = "elenaruiz@gmail.com",
+                            FechaRegistracion = new DateTime(2025, 8, 31, 20, 6, 23, 968, DateTimeKind.Local).AddTicks(525),
+                            IsDeleted = false,
+                            Nombre = "Elena Ruiz",
+                            Observacion = "",
+                            Password = "password123",
+                            Telefono = "555-8901",
+                            TipoRol = 2
+                        });
                 });
 
             modelBuilder.Entity("Service.Models.UsuarioCarrera", b =>
@@ -572,6 +1022,78 @@ namespace Backend.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("UsuarioCarreras");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CarreraId = 1,
+                            IsDeleted = false,
+                            UsuarioId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CarreraId = 2,
+                            IsDeleted = false,
+                            UsuarioId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CarreraId = 3,
+                            IsDeleted = false,
+                            UsuarioId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CarreraId = 4,
+                            IsDeleted = false,
+                            UsuarioId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CarreraId = 5,
+                            IsDeleted = false,
+                            UsuarioId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CarreraId = 6,
+                            IsDeleted = false,
+                            UsuarioId = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CarreraId = 7,
+                            IsDeleted = false,
+                            UsuarioId = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CarreraId = 8,
+                            IsDeleted = false,
+                            UsuarioId = 8
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CarreraId = 9,
+                            IsDeleted = false,
+                            UsuarioId = 9
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CarreraId = 1,
+                            IsDeleted = false,
+                            UsuarioId = 10
+                        });
                 });
 
             modelBuilder.Entity("Service.Models.Ejemplar", b =>
