@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.DataContext;
 using Service.Models;
+using Service.ExtensionMethods;
 
 namespace Backend.Controllers
 {
@@ -26,8 +27,11 @@ namespace Backend.Controllers
         public async Task<ActionResult<IEnumerable<LibroAutor>>> GetLibroAutores([FromQuery] string filtro = "")
         {
             return await _context.LibroAutores
+                .Include(la=>la.Autor)
+                .Include(la => la.Libro)
                 .AsNoTracking()
-                .Where(la => la.Libro != null && la.Libro.Titulo != null && la.Libro.Titulo.Contains(filtro))
+                .Where(la => la.Libro.Titulo.ToUpper().Contains(filtro.ToUpper()) || 
+                             la.Autor.Nombre.ToUpper().Contains(filtro.ToUpper()))
                 .ToListAsync();
         }
 
@@ -59,6 +63,9 @@ namespace Backend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLibroAutor(int id, LibroAutor libroAutor)
         {
+            _context.TryAttach(libroAutor?.Autor);
+            _context.TryAttach(libroAutor?.Libro?.Editorial);
+            _context.TryAttach(libroAutor?.Libro);
             if (id != libroAutor.Id)
             {
                 return BadRequest();
@@ -90,6 +97,9 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<LibroAutor>> PostLibroAutor(LibroAutor libroAutor)
         {
+            _context.TryAttach(libroAutor?.Autor);
+            _context.TryAttach(libroAutor?.Libro?.Editorial);
+            _context.TryAttach(libroAutor?.Libro);
             _context.LibroAutores.Add(libroAutor);
             await _context.SaveChangesAsync();
 

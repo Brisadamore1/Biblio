@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.DataContext;
 using Service.Models;
+using Service.ExtensionMethods;
 
 namespace Backend.Controllers
 {
@@ -56,6 +57,7 @@ namespace Backend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLibro(int id, Libro libro)
         {
+            _context.TryAttach(libro?.Editorial);
             if (id != libro.Id)
             {
                 return BadRequest();
@@ -87,6 +89,7 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Libro>> PostLibro(Libro libro)
         {
+            _context.TryAttach(libro?.Editorial);
             _context.Libros.Add(libro);
             await _context.SaveChangesAsync();
 

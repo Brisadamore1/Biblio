@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.DataContext;
 using Service.Models;
+using Service.ExtensionMethods;
 
 namespace Backend.Controllers
 {
@@ -26,8 +27,9 @@ namespace Backend.Controllers
         public async Task<ActionResult<IEnumerable<Prestamo>>> GetPrestamos([FromQuery] string filtro = "")
         {
             return await _context.Prestamos
+                .Include(p => p.Usuario)
                 .AsNoTracking()
-                .Where(p => p.Usuario != null && p.Usuario.Nombre != null && p.Usuario.Nombre.Contains(filtro))
+                .Where(p => p.Usuario.Nombre.ToUpper().Contains(filtro.ToUpper()))
                 .ToListAsync();
         }
 
@@ -59,6 +61,9 @@ namespace Backend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPrestamo(int id, Prestamo prestamo)
         {
+            _context.TryAttach(prestamo?.Usuario);
+            _context.TryAttach(prestamo?.Ejemplar?.Libro);
+            _context.TryAttach(prestamo?.Ejemplar);
             if (id != prestamo.Id)
             {
                 return BadRequest();
@@ -90,6 +95,9 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Prestamo>> PostPrestamo(Prestamo prestamo)
         {
+            _context.TryAttach(prestamo?.Usuario);
+            _context.TryAttach(prestamo?.Ejemplar?.Libro);
+            _context.TryAttach(prestamo?.Ejemplar);
             _context.Prestamos.Add(prestamo);
             await _context.SaveChangesAsync();
 

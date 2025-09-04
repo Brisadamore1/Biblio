@@ -43,7 +43,7 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Carrera>> GetCarrera(int id)
         {
-            var carrera = await _context.Carreras.AsNoTracking().FirstOrDefaultAsync(a=>a.Id.Equals(id));
+            var carrera = await _context.Carreras.AsNoTracking().FirstOrDefaultAsync(c=>c.Id.Equals(id));
 
             if (carrera == null)
             {

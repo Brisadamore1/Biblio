@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.DataContext;
 using Service.Models;
+using Service.ExtensionMethods;
 
 namespace Backend.Controllers
 {
@@ -26,8 +27,11 @@ namespace Backend.Controllers
         public async Task<ActionResult<IEnumerable<UsuarioCarrera>>> GetUsuarioCarreras([FromQuery] string filtro = "")
         {
             return await _context.UsuarioCarreras
+                .Include(uc => uc.Carrera)
+                .Include(uc => uc.Usuario)
                 .AsNoTracking()
-                .Where(uc => uc.Usuario != null && uc.Usuario.Nombre != null && uc.Usuario.Nombre.Contains(filtro))
+                .Where(uc => uc.Usuario.Nombre.ToUpper().Contains(filtro.ToUpper()) ||
+                             uc.Carrera.Nombre.ToUpper().Contains(filtro.ToUpper()))
                 .ToListAsync();
         }
 
@@ -59,6 +63,8 @@ namespace Backend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUsuarioCarrera(int id, UsuarioCarrera usuarioCarrera)
         {
+            _context.TryAttach(usuarioCarrera?.Usuario);
+            _context.TryAttach(usuarioCarrera?.Carrera);
             if (id != usuarioCarrera.Id)
             {
                 return BadRequest();
@@ -90,6 +96,8 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<UsuarioCarrera>> PostUsuarioCarrera(UsuarioCarrera usuarioCarrera)
         {
+            _context.TryAttach(usuarioCarrera?.Usuario);
+            _context.TryAttach(usuarioCarrera?.Carrera);
             _context.UsuarioCarreras.Add(usuarioCarrera);
             await _context.SaveChangesAsync();
 
@@ -100,6 +108,8 @@ namespace Backend.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuarioCarrera(int id)
         {
+            //_context.TryAttach(usuarioCarrera?.Carrera);
+            //_context.TryAttach(usuarioCarrera?.Usuario);
             var usuarioCarrera = await _context.UsuarioCarreras.FindAsync(id);
             if (usuarioCarrera == null)
             {

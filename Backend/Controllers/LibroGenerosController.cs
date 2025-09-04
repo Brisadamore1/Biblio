@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.DataContext;
 using Service.Models;
+using Service.ExtensionMethods;
 
 namespace Backend.Controllers
 {
@@ -26,8 +27,11 @@ namespace Backend.Controllers
         public async Task<ActionResult<IEnumerable<LibroGenero>>> GetLibroGeneros([FromQuery] string filtro = "")
         {
             return await _context.LibroGeneros
+                .Include(lg => lg.Libro)
+                .Include(lg => lg.Genero)
                 .AsNoTracking()
-                .Where(lg => lg.Genero != null && lg.Genero.Nombre != null && lg.Genero.Nombre.Contains(filtro))
+                .Where(lg => lg.Libro.Titulo.ToUpper().Contains(filtro.ToUpper()) ||
+                             lg.Genero.Nombre.ToUpper().Contains(filtro.ToUpper()))
                 .ToListAsync();
         }
 
@@ -59,6 +63,8 @@ namespace Backend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLibroGenero(int id, LibroGenero libroGenero)
         {
+            _context.TryAttach(libroGenero?.Libro);
+            _context.TryAttach(libroGenero?.Genero);
             if (id != libroGenero.Id)
             {
                 return BadRequest();
@@ -90,6 +96,8 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<LibroGenero>> PostLibroGenero(LibroGenero libroGenero)
         {
+            _context.TryAttach(libroGenero?.Libro);
+            _context.TryAttach(libroGenero?.Genero);
             _context.LibroGeneros.Add(libroGenero);
             await _context.SaveChangesAsync();
 

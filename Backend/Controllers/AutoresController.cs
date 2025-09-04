@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Backend.DataContext;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Backend.DataContext;
 using Service.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.Intrinsics.X86;
+using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Backend.Controllers
 {
@@ -14,8 +17,10 @@ namespace Backend.Controllers
     [ApiController]
     public class AutoresController : ControllerBase
     {
+        //Acceder y manipular los datos de la base de datos a través del contexto de datos BiblioContext.
         private readonly BiblioContext _context;
 
+        //Accede al contructor por inyección de dependencias. Gracias a la configuracion que hacemos en el archivo program. 
         public AutoresController(BiblioContext context)
         {
             _context = context;
@@ -26,7 +31,19 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Autor>>> GetAutores([FromQuery] string filtro="")
         {
-            return await _context.Autores.AsNoTracking().Where(a=>a.Nombre.Contains(filtro)).ToListAsync();
+            //El a es un parámetro de la expresión lambda, y en este contexto representa una instancia de la entidad Autor.
+
+            //Podrías ponerle cualquier nombre(ejemplo: autor => !autor.IsDeleted), lo importante es que ese parámetro corresponde al tipo definido en Entity<Autor>().
+
+            //No necesariamente tiene que ser la inicial de la entidad. Se suele usar una letra(ejemplo a, u, p) por costumbre y brevedad, pero es válido usar un nombre descriptivo
+
+            return await _context.Autores
+                .AsNoTracking()
+                .Where(a=>a.Nombre.ToUpper().Contains(filtro.ToUpper()))
+                .ToListAsync();
+
+            //Puede coincidir la letra que uses, porque cada lambda vive en su propio ámbito.
+            //Buenas prácticas: usá un nombre corto pero representativo para que el código sea más legible.
         }
 
         [HttpGet("deleteds")]
