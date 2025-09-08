@@ -12,12 +12,14 @@ namespace Test
         public async Task TestObtenerResumenLibroIA()
         {
             //leemos la clave de la api desde appsettings.json 
+            await LoginTest();
             var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables()
             .Build();
 
-            var apiKey = "AIzaSyBsfwgSlt6kyBtRYHOPByWIVZBEjmVC_Lw";
+            var apiKey = configuration["ApiKeyGemini"];
+            //"AIzaSyBsfwgSlt6kyBtRYHOPByWIVZBEjmVC_Lw";
             var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key= " + apiKey;
 
             var prompt = $"Me puedes dar un resumen de 200 palabras como máximo de deja de ser tu de joe dispenza";
@@ -54,9 +56,25 @@ namespace Test
             Assert.True(response.IsSuccessStatusCode);
         }
 
+        private async Task LoginTest()
+        {
+            var configuration = new ConfigurationBuilder()
+              .AddJsonFile("appsettings.json")
+              .Build();
+            var serviceAuth = new Authservice(configuration);
+            var token = await serviceAuth.Login(new Service.DTOs.LoginDTO
+            {
+                Username = "bridamore17@gmail.com",
+                Password = "123456"
+            });
+            Console.WriteLine($">>>>>>>>>>>>>>>>>>>>>>>>>>Token: {token}");
+            GeminiService.jwtToken = token;          
+        }
+
         [Fact]
         public async Task TestServiceGeminiGetPrompt()
         {
+            await LoginTest();
             //leemos la api key desde appsettings.json
             var configuration = new ConfigurationBuilder()
                   .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)

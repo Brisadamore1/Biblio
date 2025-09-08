@@ -1,4 +1,5 @@
 ﻿using Backend.DataContext;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AutoresController : ControllerBase
     {
         //Acceder y manipular los datos de la base de datos a través del contexto de datos BiblioContext.
