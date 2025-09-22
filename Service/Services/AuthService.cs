@@ -11,14 +11,16 @@ using System.Threading.Tasks;
 
 namespace Service.Services
 {
-    public class Authservice : IAuthService
+    public class AuthService : IAuthService
     {
-        private readonly IConfiguration _configuration;
-        public Authservice(IConfiguration configuration)
+        public AuthService()
         {
-            _configuration = configuration;
+            
         }
-        public async Task<string?> Login(LoginDTO? login)
+
+        //si no recibo el objeto IConfiguration en el constructor, creo un constructor vacio que instancie uno y lea el archivo appsettings.json
+
+        public async Task<bool> Login(LoginDTO? login)
         {
             if (login == null)
             {
@@ -26,18 +28,19 @@ namespace Service.Services
             }
             try
             {
-                var UrlApi = _configuration["UrlApi"];
+                var urlApi = Properties.Resources.UrlApi;
                 var endpointAuth = ApiEndpoints.GetEndpoint("Login");
                 var client = new HttpClient();
-                var response = await client.PostAsJsonAsync($"{UrlApi}{endpointAuth}/login/",login);
+                var response = await client.PostAsJsonAsync($"{urlApi}{endpointAuth}/login/",login);
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
-                    return result;
+                    GenericService<object>.jwtToken = result;
+                    return true;
                 }
                 else
                 {
-                    return null;
+                    return false;
                 }
             }
             catch (Exception ex)

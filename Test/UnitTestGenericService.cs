@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyModel;
+using Service.DTOs;
 using Service.Models;
 using Service.Services;
 
@@ -26,18 +27,14 @@ namespace Test
         }
 
         private async Task LoginTest()
-        {
-            var configuration = new ConfigurationBuilder()
-                 .AddJsonFile("appsettings.json")
-                 .Build();
-            var serviceAuth = new Authservice(configuration);
-            var token = await serviceAuth.Login(new Service.DTOs.LoginDTO
+        { 
+            var serviceAuth = new AuthService();
+            var token = await serviceAuth.Login(new LoginDTO
             {
                 Username = "bridamore17@gmail.com",
                 Password = "123456"
             });
             Console.WriteLine($">>>>>>>>>>>>>>>>>>>>>>>>>>Token: {token}");
-            GenericService<object>.jwtToken = token;
         }
         //Test GetAllAsyn método del GenericService con filtro
         [Fact]

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Backend.DataContext;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Backend.DataContext;
+using Service.DTOs;
 using Service.Models;
-using Service.ExtensionMethods;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers
 {
@@ -26,9 +21,39 @@ namespace Backend.Controllers
 
         // GET: api/Libros
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Libro>>> GetLibros([FromQuery] string filtro = "")
+        public async Task<ActionResult<IEnumerable<Libro>>> GetLibros([FromQuery] string filtro="")
         {
-            return await _context.Libros.AsNoTracking().Where(l => l.Titulo.Contains(filtro)).ToListAsync();
+            return await _context.Libros.
+                Include(l=>l.Editorial)
+                .Include(l=>l.LibroAutores).ThenInclude(la=>la.Autor)
+                .Include(l=>l.LibroGeneros).ThenInclude(lg=>lg.Genero)
+                .AsNoTracking()
+                .Where(l=>l.Titulo.Contains(filtro))
+                .ToListAsync();
+        }
+
+        [HttpPost("withfilter")]
+        public async Task<ActionResult<IEnumerable<Libro>>> GetLibroswithfilter(FilterLibroDTO filter)
+        {
+            var query = _context.Libros
+                .Include(l => l.Editorial)
+                .Include(l => l.LibroAutores).ThenInclude(la=>la.Autor)
+                .Include(l => l.LibroGeneros).ThenInclude(lg => lg.Genero)
+                .AsNoTracking()
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter.SearchText))
+            {
+                var search = filter.SearchText.ToLower();
+                query = query.Where(l =>
+                    (filter.ForTitulo && l.Titulo.ToLower().Contains(search)) ||
+                    (filter.ForAutor && l.LibroAutores.Any(la => la.Autor.Nombre.ToLower().Contains(search))) ||
+                    (filter.ForEditorial && l.Editorial.Nombre.ToLower().Contains(search)) ||
+                    (filter.ForGenero && l.LibroGeneros.Any(lg => lg.Genero.Nombre.ToLower().Contains(search)))
+                );
+            }
+
+            return await query.ToListAsync();
         }
 
         [HttpGet("deleteds")]
@@ -37,14 +62,14 @@ namespace Backend.Controllers
             return await _context.Libros
                 .AsNoTracking()
                 .IgnoreQueryFilters()
-                .Where(a => a.IsDeleted).ToListAsync();
+                .Where(l => l.IsDeleted).ToListAsync();
         }
 
         // GET: api/Libros/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Libro>> GetLibro(int id)
         {
-            var libro = await _context.Libros.AsNoTracking().FirstOrDefaultAsync(a => a.Id.Equals(id));
+            var libro = await _context.Libros.AsNoTracking().FirstOrDefaultAsync(l=>l.Id.Equals(id));
 
             if (libro == null)
             {
@@ -55,11 +80,9 @@ namespace Backend.Controllers
         }
 
         // PUT: api/Libros/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLibro(int id, Libro libro)
         {
-            _context.TryAttach(libro?.Editorial);
             if (id != libro.Id)
             {
                 return BadRequest();
@@ -87,11 +110,9 @@ namespace Backend.Controllers
         }
 
         // POST: api/Libros
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Libro>> PostLibro(Libro libro)
         {
-            _context.TryAttach(libro?.Editorial);
             _context.Libros.Add(libro);
             await _context.SaveChangesAsync();
 
@@ -107,7 +128,7 @@ namespace Backend.Controllers
             {
                 return NotFound();
             }
-            libro.IsDeleted = true;
+            libro.IsDeleted=true;
             _context.Libros.Update(libro);
             await _context.SaveChangesAsync();
 
@@ -117,18 +138,17 @@ namespace Backend.Controllers
         [HttpPut("restore/{id}")]
         public async Task<IActionResult> RestoreLibro(int id)
         {
-            var libro = await _context.Libros.IgnoreQueryFilters().FirstOrDefaultAsync(l => l.Id.Equals(id));
+            var libro = await _context.Libros.IgnoreQueryFilters().FirstOrDefaultAsync(l=>l.Id.Equals(id));
             if (libro == null)
             {
                 return NotFound();
             }
-            libro.IsDeleted = false;
-            //Impacta en memoria
+            libro.IsDeleted=false;
             _context.Libros.Update(libro);
-            //Aca recien impacta en la base de datos
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
         private bool LibroExists(int id)
         {
             return _context.Libros.Any(e => e.Id == id);

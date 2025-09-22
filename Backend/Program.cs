@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
-
 DotNetEnv.Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
@@ -95,9 +94,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins",
         builder => builder
-            .WithOrigins("https://kioscobri.azurewebsites.net/",
-                    "https://www.kioscobri.azurewebsites.net/",
-                    "https://localhost:7238",
+            .WithOrigins("https://bibliobrisa.azurewebsites.net/",
+                    "https://www.bibliobrisa.azurewebsites.net/",
+                    "https://localhost:8000",
                     "https://localhost:7190",
                     "https://localhost:5091")
             .AllowAnyHeader()

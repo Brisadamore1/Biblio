@@ -19,9 +19,10 @@ namespace Service.Models
         [Required]  
         [Column(TypeName = "text")]
         public string Sinopsis { get; set; } = string.Empty;
-
         public bool IsDeleted { get; set; } = false;
 
+        virtual public ICollection<LibroAutor> LibroAutores { get; set; } = new List<LibroAutor>();
+        virtual public ICollection<LibroGenero> LibroGeneros { get; set; } = new List<LibroGenero>();
         public override string ToString()
         {
             return Titulo;

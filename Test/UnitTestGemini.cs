@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Configuration;
+using Service.DTOs;
 using Service.Services;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Xunit;
@@ -19,7 +21,6 @@ namespace Test
             .Build();
 
             var apiKey = configuration["ApiKeyGemini"];
-            //"AIzaSyBsfwgSlt6kyBtRYHOPByWIVZBEjmVC_Lw";
             var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key= " + apiKey;
 
             var prompt = $"Me puedes dar un resumen de 200 palabras como máximo de deja de ser tu de joe dispenza";
@@ -58,17 +59,13 @@ namespace Test
 
         private async Task LoginTest()
         {
-            var configuration = new ConfigurationBuilder()
-              .AddJsonFile("appsettings.json")
-              .Build();
-            var serviceAuth = new Authservice(configuration);
-            var token = await serviceAuth.Login(new Service.DTOs.LoginDTO
+            var serviceAuth = new AuthService();
+            var token = await serviceAuth.Login(new LoginDTO
             {
                 Username = "bridamore17@gmail.com",
                 Password = "123456"
             });
             Console.WriteLine($">>>>>>>>>>>>>>>>>>>>>>>>>>Token: {token}");
-            GeminiService.jwtToken = token;          
         }
 
         [Fact]
@@ -85,6 +82,39 @@ namespace Test
             var resultado = await servicio.GetPrompt(prompt);
             Console.WriteLine($"Respuesta de IA desde servicio: {resultado}");
             Assert.NotNull(resultado);
+        }
+
+        [Fact]
+        public async Task TestReconocerPortadaGeminiController()
+        {
+            // Autenticación (si tu API requiere token, obténlo aquí)
+            await LoginTest();
+            // Ruta de la imagen de prueba (debe existir en la carpeta del proyecto)
+            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "portada_test.jpg");
+            Assert.True(File.Exists(imagePath), $"No se encontró la imagen de prueba: {imagePath}");
+            using var client = new HttpClient();
+            //client.BaseAddress = new Uri("https://localhost:7000/"); // Cambia el puerto si tu backend usa otro
+            // Si necesitas token:
+            // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            using var form = new MultipartFormDataContent();
+            using var imageStream = File.OpenRead(imagePath);
+            var imageContent = new StreamContent(imageStream);
+            imageContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+            form.Add(imageContent, "Image", "portada_test.jpg");
+            // Puedes agregar otros campos si BookCoverExtractionRequestDTO los requiere
+            if (!string.IsNullOrEmpty(GenericService<object>.jwtToken))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GenericService<object>.jwtToken);
+            else
+                throw new ArgumentException("Error Token no definido", nameof(GenericService<object>.jwtToken));
+            var response = await client.PostAsync("https://localhost:7000/api/gemini/ocr-portada", form);
+            var result = await response.Content.ReadAsStringAsync();
+            Assert.True(response.IsSuccessStatusCode, $"Error en la API: {result}");
+            // Deserializa el resultado
+            var metadata = JsonSerializer.Deserialize<BookMetadataDTO>(result, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            Assert.NotNull(metadata);
+            Assert.False(string.IsNullOrWhiteSpace(metadata.Titulo));
+            Assert.NotNull(metadata.Autores);
+            Assert.NotNull(metadata.Editorial);
         }
     }
 }
