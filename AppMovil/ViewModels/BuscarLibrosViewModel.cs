@@ -60,7 +60,7 @@ namespace AppMovil.ViewModels
 
         partial void OnSearchTextChanged(string value)
         {
-            if (string.IsNullOrEmpty(value)) OnBuscar();
+            //if (string.IsNullOrEmpty(value)) OnBuscar();
         }
 
         // Los cambios en filtros también disparan nueva búsqueda

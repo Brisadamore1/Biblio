@@ -11,6 +11,12 @@
         <Entry Placeholder="Usuario" Text="{Binding Username}"/>
         <Entry Placeholder="Contrasena" IsPassword="True" Text="{Binding Password}"/>
         <Button Text="Ingresar" Command="{Binding LoginCommand}"/>
+        <!-- Ingreso el texto de enlace "Olvidé mi contraseña"-->
+        <Label Text="Olvide mi contrasena" TextColor="Blue" HorizontalOptions="Center">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
         <ActivityIndicator IsRunning="{Binding IsBusy}"/>
     </StackLayout>
 </ContentPage>

@@ -2,9 +2,9 @@ using Microsoft.Maui.Controls;
 
 namespace AppMovil
 {
-    public partial class DevolucionesPage : ContentPage
+    public partial class LoginPage : ContentPage
     {
-        public DevolucionesPage()
+        public LoginPage()
         {
             InitializeComponent();
         }

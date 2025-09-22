@@ -67,4 +67,16 @@
 	  <ProjectReference Include="..\Service\Service.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Pages\RecuperarPasswordPage.xaml.cs">
+	    <DependentUpon>RecuperarPasswordPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\RecuperarPasswordPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

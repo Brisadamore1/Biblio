@@ -169,7 +169,7 @@
                                    HasShadow="True"
                                    BorderColor="LightSteelBlue">
                                 <Grid ColumnDefinitions="Auto, *, Auto" 
-                                      RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+                                      RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
 
                                     <!-- Ícono principal -->
                                     <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="5"
@@ -229,7 +229,25 @@
                                            LineBreakMode="WordWrap"
                                            MaxLines="2"
                                            Margin="0,8,0,0"/>
-
+                                    
+                                    <!-- Autores -->
+                                    <Label Grid.Column="1" Grid.Row="5"
+                                            Text="{Binding Autores}" 
+                                            FontSize="13"
+                                            TextColor="DarkGray"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Margin="0,8,0,0"/>
+                                    
+                                    <!-- Generos -->
+                                    <Label Grid.Column="1" Grid.Row="6"
+                                            Text="{Binding Generos}" 
+                                            FontSize="13"
+                                            TextColor="DarkGray"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Margin="0,8,0,0"/>
+                                    
                                     <!-- Botón de acción -->
                                     <Button Grid.Column="2" Grid.Row="0" Grid.RowSpan="5"
                                             Text="📖&#x0a;Ver"
@@ -241,12 +259,7 @@
                                             HeightRequest="60"
                                             VerticalOptions="Center"/>
 
-                                    <!-- Línea separadora decorativa -->
-                                    <BoxView Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3"
-                                             HeightRequest="2"
-                                             BackgroundColor="LightSteelBlue"
-                                             CornerRadius="1"
-                                             Margin="0,15,0,0"/>
+                                   
                                 </Grid>
                             </Frame>
                         </DataTemplate>

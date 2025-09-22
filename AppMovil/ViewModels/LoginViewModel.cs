@@ -29,15 +29,21 @@ namespace AppMovil.ViewModels
         private string errorMessage = string.Empty;
 
         public IRelayCommand LoginCommand { get; }
-
+        public IRelayCommand ForgotPasswordCommand { get; }
 
         public LoginViewModel()
         {
             _authService = new AuthService();
             _usuarioService = new UsuarioService();
             LoginCommand = new RelayCommand(OnLogin, CanLogin);
+            ForgotPasswordCommand = new RelayCommand(OnForgotPassword);
         }
-        
+
+        private void OnForgotPassword()
+        {
+            
+        }
+
         private bool CanLogin()
         {
             return !IsBusy &&
