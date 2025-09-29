@@ -32,7 +32,7 @@ namespace Test
             var token = await serviceAuth.Login(new LoginDTO
             {
                 Username = "bridamore17@gmail.com",
-                Password = "123456"
+                Password = "1234567"
             });
             Console.WriteLine($">>>>>>>>>>>>>>>>>>>>>>>>>>Token: {token}");
         }

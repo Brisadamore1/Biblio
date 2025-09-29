@@ -41,7 +41,12 @@ namespace AppMovil.ViewModels
 
         private void OnForgotPassword()
         {
-            
+            //tomo referencia del shell actual
+            if (Application.Current?.MainPage is AppShell shell)
+            {
+                shell.ViewModel.ResetPasswordVisible = true;
+                shell.SetLoginState(false);
+            }
         }
 
         private bool CanLogin()

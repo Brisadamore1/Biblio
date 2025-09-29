@@ -1,12 +1,11 @@
 using Microsoft.Maui.Controls;
 
-namespace AppMovil
+namespace AppMovil.Pages;
+
+public partial class RecuperarPasswordPage : ContentPage
 {
-    public partial class LoginPage : ContentPage
+    public RecuperarPasswordPage()
     {
-        public LoginPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

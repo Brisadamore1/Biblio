@@ -68,13 +68,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\RecuperarPasswordPage.xaml.cs">
-	    <DependentUpon>RecuperarPasswordPage.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="Pages\RecuperarPasswordPage.xaml">
+	  <MauiXaml Update="Views\BuscarLibrosPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DevolucionesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PrestamosPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
