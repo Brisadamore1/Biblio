@@ -1,4 +1,4 @@
-        using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 using Microsoft.Extensions.Configuration;
@@ -31,12 +31,24 @@ namespace AppMovil.ViewModels
         public IRelayCommand LoginCommand { get; }
         public IRelayCommand ForgotPasswordCommand { get; }
 
+        public IRelayCommand RegisterCommand { get; }
+
         public LoginViewModel()
         {
             _authService = new AuthService();
             _usuarioService = new UsuarioService();
             LoginCommand = new RelayCommand(OnLogin, CanLogin);
             ForgotPasswordCommand = new RelayCommand(OnForgotPassword);
+            RegisterCommand = new RelayCommand(OnRegister);
+        }
+
+        private void OnRegister()
+        {
+            if (Application.Current?.MainPage is AppShell shell)
+            {
+                shell.ViewModel.RegistrarseVisible = true;
+                shell.SetLoginState(false);
+            }
         }
 
         private void OnForgotPassword()
@@ -47,6 +59,7 @@ namespace AppMovil.ViewModels
                 shell.ViewModel.ResetPasswordVisible = true;
                 shell.SetLoginState(false);
             }
+
         }
 
         private bool CanLogin()
@@ -67,24 +80,24 @@ namespace AppMovil.ViewModels
 
                 var response = await _authService.Login(new LoginDTO
                 {
-                    Username = Username,
-                    Password = Password
+                    Username = this.Username,
+                    Password = this.Password
                 });
 
-                if (!response)
+                if (response !=null)
                 {
-                    ErrorMessage = "Usuario o Contraseña incorrecto";
+                    //mostramos el mensaje de error
+                    ErrorMessage = response;
                     return;
                 }
 
                 var usuario = await _usuarioService.GetByEmailAsync(username);
-                if ( usuario == null)
+                if (usuario == null)
                 {
                     ErrorMessage = "No se pudo obtener la información del usuario.";
                     return;
                 }
                 Preferences.Set("UserLoginId", usuario.Id);
-
                 // PERMITE CUALQUIER USUARIO/CONTRASEÑA durante desarrollo
                 // Solo requiere que no estén vacíos
                 if (Application.Current?.MainPage is AppShell shell)
@@ -102,13 +115,15 @@ namespace AppMovil.ViewModels
             }
         }
 
-        partial void OnErrorMessageChanged(string? oldValue, string newValue)
+        partial void OnErrorMessageChanged(string value)
         {
-            if (!string.IsNullOrEmpty(newValue))
+            if (!string.IsNullOrEmpty(value))
             {
-                // Mostrar una alerta cuando ErrorMessage cambie a un valor no vacío
-                Application.Current?.MainPage?.DisplayAlert("Error de Login", newValue, "OK");
+                // Mostrar mensaje de error en una alerta
+                Application.Current?.MainPage?.DisplayAlert("Error de inicio de sesión", value, "OK");
             }
         }
+       
+
     }
 }

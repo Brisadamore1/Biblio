@@ -24,6 +24,7 @@ namespace Service.Utils
         public static string UsuarioCarrera { get; set; } = "usuarioscarreras";
         public static string Gemini { get; set; } = "gemini";
         public static string Login { get; set; } = "auth";
+        public static string UsuarioInstitutoApp { get; set; } = "zpiusuarios";
 
         public static string GetEndpoint(string name)
         {
@@ -42,6 +43,7 @@ namespace Service.Utils
                 nameof(UsuarioCarrera) => UsuarioCarrera,
                 nameof(Gemini) => Gemini,
                 nameof(Login) => Login,
+                nameof(UsuarioInstitutoApp) => UsuarioInstitutoApp,
                 _ => throw new ArgumentException($"Endpoint '{name}' no está definido.")
             };
         }
