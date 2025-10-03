@@ -48,7 +48,7 @@ namespace Service.Services
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener el usuario" + ex.Message);
+                throw new Exception("Error al obtener el usuario:" + ex.Message);
             }
 
 

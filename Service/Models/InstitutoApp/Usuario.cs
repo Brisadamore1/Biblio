@@ -1,4 +1,5 @@
 ﻿using Service.Enums;
+using Service.Enums.InstitutoApp;
 
 namespace Service.Models.InstitutoApp
 {
