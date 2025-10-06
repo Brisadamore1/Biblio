@@ -68,14 +68,14 @@
     // Métodos de UI
     void ToggleFiltros() => MostrarFiltros = !MostrarFiltros;
 
-    void LimpiarBusqueda()
+    async Task LimpiarBusqueda()
     {
         SearchText = "";
         FiltrarPorTitulo = true;
         FiltrarPorAutor = false;
         FiltrarPorEditorial = false;
         FiltrarPorGenero = false;
-        Libros.Clear();
+        await HandleBuscar();
     }
     private async Task HandleBuscar()
     {
