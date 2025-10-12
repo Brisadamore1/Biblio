@@ -33,21 +33,19 @@ builder.Services.AddAuthorization();
 // Add services to the container.
 
 builder.Services.AddControllers();
-
 var configuration = new ConfigurationBuilder()
         .SetBasePath(Directory.GetCurrentDirectory())
         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
         .AddEnvironmentVariables()
         .Build();
-var cadenaConexion = configuration.GetConnectionString("mysqlRemoto");
 
+var cadenaConexion = configuration.GetConnectionString("mysqlRemoto");
 
 //configuración de inyección de dependencias del DBContext
 
 builder.Services.AddDbContext<BiblioContext>(
     options => options.UseMySql(cadenaConexion,
                                 ServerVersion.AutoDetect(cadenaConexion)));
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 

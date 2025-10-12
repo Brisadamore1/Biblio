@@ -9,6 +9,7 @@ namespace Service.Utils
 {
     public static class ApiEndpoints
     {
+        //Estos es para definir los endpoints de la API y poder usarlos en los servicios.
         public static string Autor { get; set; } = "autores";
         public static string Carrera { get; set; } = "Carreras";
         public static string Editorial { get; set; } = "Editoriales";

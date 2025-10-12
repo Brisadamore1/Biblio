@@ -8,6 +8,7 @@ namespace Service.DTOs
 {
     public class FilterLibroDTO
     {
+        //Buscar texto en titulo, autor, editorial o genero. 
         public string SearchText { get; set; } = "";
         public bool ForTitulo { get; set; } = false;
         public bool ForAutor { get; set; } = false;

@@ -29,6 +29,7 @@ namespace Web.Services
 
         public async Task<string> createUserWithEmailAndPassword(string email, string password, string displayName)
         {
+            //Cuando crea un usuario no se loguea automáticamente. Lo crea y te lleva al login.
             var userId = await _jsRuntime.InvokeAsync<string>("firebaseAuth.createUserWithEmailAndPassword", email, password, displayName);
             if (userId != null)
             {
@@ -46,6 +47,8 @@ namespace Web.Services
 
         public async Task<FirebaseUser?> GetUserFirebase()
         {
+            //Devuelve el usuario logueado actualmente.
+            //Email verified es para saber si el email fue verificado. Para que no pongan cualquier email.
             var userFirebase = await _jsRuntime.InvokeAsync<FirebaseUser>("firebaseAuth.getUserFirebase");
             if (userFirebase!=null && userFirebase.EmailVerified)
             {
@@ -66,6 +69,7 @@ namespace Web.Services
 
         public async Task<bool> IsUserAuthenticated()
         {
+            //Este método verifica si hay un usuario autenticado. Autenticado es cuando el usuario ha iniciado sesión correctamente. Método que define si el usuario está logueado o no.
             var user = await GetUserFirebase();
             if (user != null)
             {
