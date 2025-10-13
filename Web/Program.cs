@@ -4,7 +4,6 @@ using Service.Services;
 using Web.Components;
 using Web.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

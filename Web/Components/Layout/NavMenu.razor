@@ -33,8 +33,11 @@
     </nav>
 </div>
 @code {
+    //_userLogued es el usuario logueado. El que se obtiene del servicio.
     FirebaseUser _userLogued;
+    //_isLogued es true si hay un usuario logueado. Se pone = true o false en el metodo LoginChanged
     bool _isLogued = false;
+
     private string textBtnLogin => _isLogued ? "Cerrar sesión" : "Iniciar sesión";
 
     //Después del renderizado significa onafterrender 

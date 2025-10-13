@@ -60,9 +60,11 @@ namespace Web.Services
         }
         public async Task SetUserToken()
         {
-           var jwt = await _jsRuntime.InvokeAsync<string?>("firebaseAuth.getUserToken");
+            //Llamamos a la funcion creada en app.razor. Nos devuelve el token JWT.
+            var jwt = await _jsRuntime.InvokeAsync<string?>("firebaseAuth.getUserToken");
             if (jwt != null)
             {
+                //Si se obtuvo el token, lo asignamos a la propiedad estática jwtToken de GenericService.
                 GenericService<Object>.jwtToken = jwt;
             }
         }
@@ -73,6 +75,7 @@ namespace Web.Services
             var user = await GetUserFirebase();
             if (user != null)
             {
+                //Si hay un usuario, obtenemos el token y lo seteamos en GenericService.
                 await SetUserToken();
                 //Invocamos para decir que ocurrió un cambio en el login.
                 OnChangeLogin?.Invoke();
