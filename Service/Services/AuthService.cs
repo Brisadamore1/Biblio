@@ -22,15 +22,6 @@ namespace Service.Services
 
         //si no recibo el objeto IConfiguration en el constructor, creo un constructor vacio que instancie uno y lea el archivo appsettings.json
 
-        protected void SetAuthorizationHeader(HttpClient _httpClient)
-        {
-            if (!string.IsNullOrEmpty(GenericService<object>.jwtToken))
-                _httpClient.DefaultRequestHeaders.Authorization = new 
-                    AuthenticationHeaderValue("Bearer", GenericService<object>.jwtToken);
-            else
-                throw new ArgumentException("Error Token no definido", nameof
-                    (GenericService<object>.jwtToken));
-        }
         public async Task<string?> Login(LoginDTO? login)
         {
             if (login == null)
@@ -72,7 +63,7 @@ namespace Service.Services
                 var urlApi = Properties.Resources.UrlApi;
                 var endpointAuth = ApiEndpoints.GetEndpoint("Login");
                 var client = new HttpClient();
-                SetAuthorizationHeader(client);
+                //SetAuthorizationHeader(client);
                 var response = await client.PostAsJsonAsync($"{urlApi}{endpointAuth}/resetpassword/", login);
                 if (response.IsSuccessStatusCode)
                 {

@@ -1,10 +1,10 @@
-﻿using Service.Interfaces;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Service.Interfaces;
 using Service.Models;
 using Service.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
@@ -15,7 +15,7 @@ namespace Service.Services
     public class UsuarioService : GenericService<Usuario>, IUsuarioService
     {
 
-        public UsuarioService(HttpClient? httpClient = null) : base(httpClient)
+        public UsuarioService(HttpClient? httpClient = null, IMemoryCache? memoryCache = null) : base(httpClient, memoryCache)
         {
         }
         public async Task<Usuario?> GetByEmailAsync(string email)

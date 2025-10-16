@@ -4,7 +4,7 @@
 @rendermode InteractiveServer
 
 
-@if (Libros == null)
+@if(Libros==null)
 {
     <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
         <div class="spinner-border text-primary" role="status">
@@ -37,7 +37,7 @@ else
             }
             @foreach (var libro in Libros)
             {
-                    <CardsLibro libro="libro" />
+                    <CardLibro libro="libro" />
             }
         </div>
     </div>
@@ -50,8 +50,11 @@ else
 
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if(firstRender)
         {
+            IsBusy=true;
+            StateHasChanged();
+
             await Buscar(new FilterLibroDTO(){ForTitulo=true});
         }
     }

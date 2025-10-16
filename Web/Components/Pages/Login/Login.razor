@@ -101,6 +101,9 @@ else
                     return;
                 }
                 isAuthenticated = true;
+                await _firebaseAuthService.IsUserAuthenticated();
+                //var usuario = await _usuarioService.GetByEmailAsync(email);
+                //UsuarioSessionService.UsuarioCurrent = usuario;
                 StateHasChanged();
                 // Aquí podrías redirigir al usuario a otra página si es necesario
             }
@@ -137,6 +140,7 @@ else
         if (user != null)
         {
             isAuthenticated = true;
+            await _firebaseAuthService.IsUserAuthenticated();
             StateHasChanged();
             // Aquí podrías redirigir al usuario a otra página si es necesario
         }
