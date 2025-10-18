@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Pages\Admin\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
 

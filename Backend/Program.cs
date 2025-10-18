@@ -101,6 +101,7 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod());
 });
 
+//Se instancia la aplicación
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -110,6 +111,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Implementa la politica de CORS
 app.UseCors("AllowSpecificOrigins");
 
 app.UseHttpsRedirection();

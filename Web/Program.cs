@@ -10,15 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// caching memory  
+// caching memory
 builder.Services.AddMemoryCache();
 // Auth service que usa el provider
 builder.Services.AddScoped<FirebaseAuthService>();
 
 
-builder.Services.AddScoped(typeof(IGenericService<object>),
-    typeof(GenericService<object>));
+builder.Services.AddScoped(typeof(IGenericService<>),
+    typeof(GenericService<>));
 
+//Estas interfaces son para inyección de dependencias y servicios
 //LibroService e UsuarioService usan GenericService
 builder.Services.AddScoped<ILibroService, LibroService>();
 //prestamoService
