@@ -8,7 +8,7 @@ Pseudocódigo:
 - No modificar la lógica C# del componente.
 *@
 
-@inject ILogger<TablaIdNombreConFiltro> Logger
+@inject ILogger<TablaLibrosConFiltro> Logger
 @if (ListEntityFiltered == null)
 {
     <p>Cargando...</p>
@@ -16,12 +16,12 @@ Pseudocódigo:
 else
 {
     <div class="form-group">
-         <div class="row align-items-center g-2">
+        <div class="row align-items-center g-2">
             <div class="col-auto">
                 <label for="filterText" class="col-form-label mb-0">Buscar</label>
             </div>
             <div class="col">
-                <InputText id="filterText" class="form-control" @bind-Value="filterText" @oninput="FilterList" placeholder="Filtrar por nombre" />
+                <InputText id="filterText" class="form-control" @bind-Value="filterText" @oninput="FilterList" placeholder="Filtrar por titulo" />
             </div>
         </div>
     </div>
@@ -29,8 +29,9 @@ else
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Nombre</th>
+                <th>Titulo</th>
                 <th colspan="2">Acciones</th>
+
             </tr>
         </thead>
         <tbody>
@@ -38,22 +39,14 @@ else
             {
                 <tr>
                     <td>@entity.Id</td>
-                    <td>@entity.Nombre</td>
-                    @if(MostrarEliminados)
-                    {
-                        <td>
-                            <button title="Restaurar" class="btn btn-info" @onclick="@(() => HandleRestaurar(entity))">Restaurar</button>
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
-                                <button title="Modificar" class="btn btn-info" @onclick="@(() => HandleModificar(entity))" data-bs-toggle="modal" data-bs-target="#NuevoEditarModal">Modificar</button>
-                        </td>
-                        <td>
-                            <button title="Eliminar" class="btn btn-danger" @onclick="@(() => HandleEliminar(entity))">Eliminar</button>
-                        </td>
-                    }
+                    <td>@entity.Titulo</td>
+                    <td>
+                        <button title="Modificar" class="btn btn-info" @onclick="@(() => HandleModificar(entity))" data-bs-toggle="modal" data-bs-target="#NuevoEditarLibro">Modificar</button>
+
+                    </td>
+                    <td>
+                        <button title="Eliminar" class="btn btn-danger" @onclick="@(() => HandleEliminar(entity))">Eliminar</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -62,23 +55,17 @@ else
 
 @code {
     [Parameter]
-    public List<IEntityIdNombre> ListEntity { get; set; }
+    public List<Libro> ListEntity { get; set; }
 
-     [Parameter]
-    public bool MostrarEliminados { get; set; } = false;
-
-    List<IEntityIdNombre> ListEntityFiltered { get; set; } = null;
+    List<Libro> ListEntityFiltered { get; set; } = null;
 
     [Parameter]
-    public EventCallback<IEntityIdNombre> OnModificar { get; set; }
-
+    public EventCallback<Libro> OnModificar { get; set; }
     [Parameter]
-    public EventCallback<IEntityIdNombre> OnEliminar { get; set; }
-
-    [Parameter]
-    public EventCallback<IEntityIdNombre> OnRestaurar { get; set; }
+    public EventCallback<Libro> OnEliminar { get; set; }
 
     string filterText = "";
+
 
     protected override async Task OnParametersSetAsync()
     {
@@ -87,18 +74,14 @@ else
         // Logger.LogInformation($"ListEntity count {ListEntity.Count}");
     }
 
-    private void HandleModificar(IEntityIdNombre entity)
+    private void HandleModificar(Libro entity)
     {
         OnModificar.InvokeAsync(entity);
     }
 
-    private void HandleEliminar(IEntityIdNombre entity)
+    private void HandleEliminar(Libro entity)
     {
         OnEliminar.InvokeAsync(entity);
-    }
-    private void HandleRestaurar(IEntityIdNombre entity)
-    {
-        OnRestaurar.InvokeAsync(entity);
     }
 
     private void FilterList(ChangeEventArgs e)
@@ -113,7 +96,8 @@ else
         }
         else
         {
-            ListEntity = ListEntityFiltered.Where(x => x.Nombre.Contains(filterText,StringComparison.OrdinalIgnoreCase)).ToList();
+            //TODO: Ajustar para que filtre por titulo, autor, genero, editorial
+            ListEntity = ListEntityFiltered.Where(x => x.Titulo.Contains(filterText, StringComparison.OrdinalIgnoreCase)).ToList();
         }
         StateHasChanged();
     }
