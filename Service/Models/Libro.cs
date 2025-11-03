@@ -6,10 +6,10 @@ namespace Service.Models
     public class Libro
     {
         public int Id { get; set; }
-        [Required (ErrorMessage = "Debe ingresar un titulo")]
+        [Required(ErrorMessage = "Debe ingresar un título")]
         public string Titulo { get; set; } = string.Empty;
 
-        [Required (ErrorMessage ="Debe ingresar una descripción")]
+        [Required(ErrorMessage ="Debe ingresar una descripción")]
 
         public string Descripcion { get; set; } = string.Empty;
         public int EditorialId { get; set; } = 1;
@@ -21,6 +21,9 @@ namespace Service.Models
         [Required]  
         [Column(TypeName = "text")]
         public string Sinopsis { get; set; } = string.Empty;
+        public string CDU { get; set; } = string.Empty;
+        public string Libristica { get; set; } = string.Empty;
+        public string PalabrasClave { get; set; } = string.Empty;
         public bool IsDeleted { get; set; } = false;
         [NotMapped]
         virtual public string Autores

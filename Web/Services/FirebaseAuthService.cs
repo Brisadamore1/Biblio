@@ -32,15 +32,16 @@ namespace Web.Services
             return user;
         }
 
-        public async Task<string> createUserWithEmailAndPassword(string email, string password, string displayName)
+        public async Task<LoginResponse> createUserWithEmailAndPassword(string email, string password, string displayName)
         {
             //Cuando crea un usuario no se loguea automáticamente. Lo crea y te lleva al login.
-            var userId = await _jsRuntime.InvokeAsync<string>("firebaseAuth.createUserWithEmailAndPassword", email, password, displayName);
-            if (userId != null)
+            var loginResponse = await _jsRuntime.InvokeAsync<LoginResponse>("firebaseAuth.createUserWithEmailAndPassword", email, password, displayName);
+            if (loginResponse.UserUid != null)
             {
+                await SetUserToken();
                 OnChangeLogin?.Invoke();
             }
-            return userId;
+            return loginResponse;
         }
 
         public async Task SignOut()

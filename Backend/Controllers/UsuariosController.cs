@@ -27,7 +27,11 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios([FromQuery] string filtro = "")
         {
-            return await _context.Usuarios.AsNoTracking().Where(u => u.Nombre.Contains(filtro)).ToListAsync();
+            return await _context.Usuarios
+                .AsNoTracking()
+                .Include(u => u.CarrerasInscriptas)
+                .ThenInclude(ci => ci.Carrera)
+                .Where(u => u.Nombre.Contains(filtro)).ToListAsync();
         }
 
         [HttpGet("deleteds")]
@@ -43,7 +47,11 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {
-            var usuario = await _context.Usuarios.AsNoTracking().FirstOrDefaultAsync(u => u.Id.Equals(id));
+            var usuario = await _context.Usuarios
+                .AsNoTracking()
+                .Include(u => u.CarrerasInscriptas)
+                .ThenInclude(ci => ci.Carrera)
+                .FirstOrDefaultAsync(u => u.Id.Equals(id));
 
             if (usuario == null)
             {
@@ -106,8 +114,29 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
+            var usuarioExistente = await _context.Usuarios
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email == usuario.Email || u.Dni.Equals(usuario.Dni));
+            if (usuarioExistente != null)
+            {
+                return Conflict("Ya existe un usuario con el mismo email o DNI");
+            }
             _context.Usuarios.Add(usuario);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateException)
+            {
+                if (UsuarioExists(usuario.Id))
+                {
+                    return Conflict("Ya existe un usuario con el mismo correo");
+                }
+                else
+                {
+                    throw new Exception("Ocurrió un error al crear el usuario");
+                }
+            }
 
             return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
         }

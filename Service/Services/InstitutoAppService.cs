@@ -23,6 +23,7 @@ namespace Service.Services
             _configuration = configuration;
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
+      
         public async Task<Usuario?> GetUsuarioByEmailAsync(string email)
         {
             if (string.IsNullOrEmpty(email))
@@ -31,7 +32,7 @@ namespace Service.Services
             }
             try
             {
-                var urlApi = _configuration["UrlInstitutoApp"];
+                var urlApi = Properties.Resources.UrlApiInstitutoApp;
                 var endpoint = ApiEndpoints.GetEndpoint("UsuarioInstitutoApp");
                 
                 var response = await _httpClient.GetAsync($"{urlApi}{endpoint}/getbyemail?email={email}");
