@@ -23,8 +23,8 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Libro>>> GetLibros([FromQuery] string filtro="")
         {
-            return await _context.Libros.
-                Include(l=>l.Editorial)
+            return await _context.Libros
+                .Include(l=>l.Editorial)
                 .Include(l=>l.LibroAutores).ThenInclude(la=>la.Autor)
                 .Include(l=>l.LibroGeneros).ThenInclude(lg=>lg.Genero)
                 .AsNoTracking()
@@ -69,7 +69,12 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Libro>> GetLibro(int id)
         {
-            var libro = await _context.Libros.AsNoTracking().FirstOrDefaultAsync(l=>l.Id.Equals(id));
+            var libro = await _context.Libros
+                .Include(l => l.Editorial)
+                .Include(l => l.LibroAutores).ThenInclude(la => la.Autor)
+                .Include(l => l.LibroGeneros).ThenInclude(lg => lg.Genero)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(l=>l.Id.Equals(id));
 
             if (libro == null)
             {
@@ -86,6 +91,50 @@ namespace Backend.Controllers
             if (id != libro.Id)
             {
                 return BadRequest();
+            }
+
+            var libroAnterior = await _context.Libros
+                                .Include(l => l.Editorial)
+                                .Include(l => l.LibroAutores).ThenInclude(la => la.Autor)
+                                .Include(l => l.LibroGeneros).ThenInclude(lg => lg.Genero)
+                                .AsNoTracking()
+                                .FirstOrDefaultAsync(l => l.Id.Equals(id));
+            if (libroAnterior == null)
+            {
+                return NotFound();
+            }
+
+            //buscamos autores y generos nuevos
+            var autoresNuevos = libro.LibroAutores.Where(la => !libroAnterior.LibroAutores.Any(aa => aa.AutorId == la.AutorId)).ToList();
+            var generosNuevos = libro.LibroGeneros.Where(lg => !libroAnterior.LibroGeneros.Any(ga => ga.GeneroId == lg.GeneroId)).ToList();
+            //buscamos autores y géneros eliminados
+            var autoresEliminados = libroAnterior.LibroAutores.Where(aa => !libro.LibroAutores.Any(la => la.AutorId == aa.AutorId)).ToList();
+            var generosEliminados = libroAnterior.LibroGeneros.Where(ga => !libro.LibroGeneros.Any(lg => lg.GeneroId == ga.GeneroId)).ToList();
+            //actualizamos las listas
+            foreach (var autor in autoresNuevos)
+            {
+                _context.LibroAutores.Add(new LibroAutor { LibroId = libro.Id, AutorId = autor.AutorId });
+            }
+            foreach (var genero in generosNuevos)
+            {
+                _context.LibroGeneros.Add(new LibroGenero { LibroId = libro.Id, GeneroId = genero.GeneroId });
+            }
+            //eliminamos los autores y géneros eliminados
+            foreach (var autor in autoresEliminados)
+            {
+                var libroAutor = await _context.LibroAutores.FirstOrDefaultAsync(la => la.LibroId == libro.Id && la.AutorId == autor.AutorId);
+                if (libroAutor != null)
+                {
+                    _context.LibroAutores.Remove(libroAutor);
+                }
+            }
+            foreach (var genero in generosEliminados)
+            {
+                var libroGenero = await _context.LibroGeneros.FirstOrDefaultAsync(lg => lg.LibroId == libro.Id && lg.GeneroId == genero.GeneroId);
+                if (libroGenero != null)
+                {
+                    _context.LibroGeneros.Remove(libroGenero);
+                }
             }
 
             _context.Entry(libro).State = EntityState.Modified;

@@ -68,16 +68,21 @@ namespace Backend.Controllers
         [Consumes("image/jpeg", "image/png", "application/octet-stream")]
         [Produces("application/json")]
         [RequestSizeLimit(20_000_000)] // 20 MB
-        public async Task<ActionResult<BookMetadataDTO>> ReconocerPortada([FromForm] BookCoverExtractionRequestDTO req, CancellationToken ct)
+        public async Task<ActionResult<BookMetadataDTO>> ReconocerPortada([FromQuery] string imageUrl, CancellationToken ct)
         {
-            if (Request.ContentLength is null or <= 0)
-                return BadRequest("El cuerpo de la solicitud debe contener bytes de imagen.");
+            if (string.IsNullOrEmpty(imageUrl))
+                return BadRequest("La cabecera de la solicitud debe contener la url de imagen.");
 
             // Lee el body a memoria (si preferís no cargar todo, podés streamear a archivo temporal)
             byte[] bytes;
             using (var ms = new MemoryStream())
             {
-                await Request.Body.CopyToAsync(ms, ct);
+                //await Request.Body.CopyToAsync(ms, ct);
+                using (var httpClient = new HttpClient())
+                {
+                    var imageBytes = await httpClient.GetByteArrayAsync(imageUrl);
+                    ms.Write(imageBytes, 0, imageBytes.Length);
+                }
                 bytes = ms.ToArray();
             }
 
@@ -96,7 +101,7 @@ namespace Backend.Controllers
             if (string.IsNullOrWhiteSpace(apiKey))
                 return StatusCode(500, "Falta configurar Gemini:ApiKey.");
 
-            
+            var base64 = Convert.ToBase64String(bytes);
 
             // Prompt en español + salida JSON estricta (response_schema)
             var prompt = """
@@ -118,8 +123,8 @@ Eres un asistente experto en catalogación bibliográfica. Analiza EXCLUSIVAMENT
                             new { text = prompt },
                             new {
                                 inline_data = new {
-                                    mime_type = req.Image.ContentType ?? "image/jpeg",
-                                    //data = base64
+                                    mime_type = mime,
+                                    data = base64
                                 }
                             }
                         }

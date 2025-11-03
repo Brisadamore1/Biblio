@@ -1,14 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Service.Models
 {
     public class Libro
     {
         public int Id { get; set; }
-        [Required]
+        [Required (ErrorMessage = "Debe ingresar un titulo")]
         public string Titulo { get; set; } = string.Empty;
+
+        [Required (ErrorMessage ="Debe ingresar una descripción")]
+
         public string Descripcion { get; set; } = string.Empty;
         public int EditorialId { get; set; } = 1;
         public Editorial? Editorial { get; set; }
@@ -25,7 +27,7 @@ namespace Service.Models
         {
             get
             {
-                if (LibroAutores == null || !LibroAutores.Any())
+                if (LibroAutores == null || LibroAutores.Count == 0)
                     return string.Empty;
                 var textAutor= LibroAutores.Count > 1 ? "Autores: " : "Autor: ";
                 return textAutor +string.Join(", ", LibroAutores.Where(la => la.Autor != null && !la.Autor.IsDeleted).Select(la => la.Autor!.Nombre));

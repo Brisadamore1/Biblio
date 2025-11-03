@@ -63,7 +63,6 @@ else
     {
         IsBusy = true;
         StateHasChanged();
-        // TODO: Lógica de búsqueda real aquí (llamada a API)
       
         Libros = await _libroService.GetWithFilterAsync(filterDTO);
         IsBusy = false;
