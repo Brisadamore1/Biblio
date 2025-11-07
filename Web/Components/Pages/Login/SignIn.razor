@@ -1,4 +1,5 @@
 ﻿@page "/signin"
+@using Service.ExtensionMethods
 @inject SweetAlertService sweetAlert
 @inject FirebaseAuthService firebaseAuthService
 @inject NavigationManager navigationManager
@@ -282,6 +283,7 @@
             }
 
             // 2) Persistir en backend
+            usuario.Password = usuario.Password.GetHashSha256(); // Hashear la contraseña antes de enviar al backend
             var usuarioNuevo = await _usuarioService.AddAsync(usuario);
             if (usuarioNuevo is null)
             {

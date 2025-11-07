@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Service.Enums;
 using Service.Interfaces;
 using Service.Models.InstitutoApp;
 using Service.Utils;
@@ -18,12 +19,12 @@ namespace Service.Services
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient = new HttpClient();
         protected readonly JsonSerializerOptions _options;
-        public InstitutoAppService(IConfiguration configuration)
+        public InstitutoAppService()
         {
-            _configuration = configuration;
+            
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
-      
+
         public async Task<Usuario?> GetUsuarioByEmailAsync(string email)
         {
             if (string.IsNullOrEmpty(email))
@@ -34,9 +35,9 @@ namespace Service.Services
             {
                 var urlApi = Properties.Resources.UrlApiInstitutoApp;
                 var endpoint = ApiEndpoints.GetEndpoint("UsuarioInstitutoApp");
-                
+
                 var response = await _httpClient.GetAsync($"{urlApi}{endpoint}/getbyemail?email={email}");
-                if(response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
                     var usuario = JsonSerializer.Deserialize<Usuario>(result, _options);
@@ -51,10 +52,9 @@ namespace Service.Services
             {
                 throw new Exception("Error al obtener el usuario:" + ex.Message);
             }
-
-
-
-
         }
+  
     }
 }
+
+

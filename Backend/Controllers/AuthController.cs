@@ -65,11 +65,12 @@ namespace Backend.Controllers
             {
                 var user = await firebaseAuthClient.CreateUserWithEmailAndPasswordAsync(register.Email, register.Password, register.Nombre);
                 await SendVerificationEmailAsync(user.User.GetIdTokenAsync().Result);
-                return Ok(user.User.GetIdTokenAsync().Result);
+                return Ok();
             }
             catch (FirebaseAuthException ex)
             {
-                return BadRequest(new { message = ex.Reason.ToString() });
+                
+                throw new Exception(ex.Reason.ToString());
             }
         }
 
