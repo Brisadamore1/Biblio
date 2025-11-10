@@ -35,7 +35,8 @@ namespace Service.Services
                 var response = await client.PostAsJsonAsync($"{UrlApi}{endpointAuth}/register/", newUser);
                 if (response.IsSuccessStatusCode)
                 {
-                    //var result = await response.Content.ReadAsStringAsync();
+                    var result = await response.Content.ReadAsStringAsync();
+                    GenericService<object>.jwtToken = result;
                     return true;
                 }
                 else
@@ -107,5 +108,34 @@ namespace Service.Services
                 throw new Exception("Error al resetear el password->: " + ex.Message);
             }
         }
+
+        public async Task<bool> DeleteUser(LoginDTO? login)
+        {
+            if (login == null)
+            {
+                throw new ArgumentException("El objeto login no llego.");
+            }
+            try
+            {
+                var urlApi = Properties.Resources.UrlApi;
+                var endpointAuth = ApiEndpoints.GetEndpoint("Login");
+                var client = new HttpClient();
+                //SetAuthorizationHeader(client);
+                var response = await client.PostAsJsonAsync($"{urlApi}{endpointAuth}/deleteuser/", login);
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar el usuario en firebase->: " + ex.Message);
+            }
+        }
+
     }
 }

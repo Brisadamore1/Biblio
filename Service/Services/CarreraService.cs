@@ -22,7 +22,7 @@ namespace Service.Services
 
         public override async Task<List<Carrera>?> GetAllAsync(string? filtro = "")
         {
-            SetAuthorizationHeader();
+            //SetAuthorizationHeader();
             var response = await _httpClient.GetAsync($"{_endpoint}?filtro={filtro}");
             if (response.IsSuccessStatusCode)
             {

@@ -57,15 +57,15 @@ public class BiblioContext : DbContext
 
         #region datos semillas de 9 carreras
         modelBuilder.Entity<Carrera>().HasData(
-            new Carrera { Id = 1, Nombre = "Profesorado de Educación Inicial" },
-            new Carrera { Id = 2, Nombre = "Profesorado de Educ. Secundaria en Cs de la Administración" },
-            new Carrera { Id = 3, Nombre = "Profesorado de Educ. Secundaria en Economía" },
-            new Carrera { Id = 4, Nombre = "Profesorado de Educación Tecnológica" },
-            new Carrera { Id = 5, Nombre = "Técnico Superior en Desarrollo de Software" },
-            new Carrera { Id = 6, Nombre = "Técnico Superior en Enfermería" },
-            new Carrera { Id = 7, Nombre = "Tecnicatura Superior en Gestión de Energías Renovables" },
-            new Carrera { Id = 8, Nombre = "Técnico Superior en Gestión de las Organizaciones" },
-            new Carrera { Id = 9, Nombre = "Técnico Superior en Soporte de Infraestructura en Tecnologías de la Información" }
+            new Carrera { Id = 6, Nombre = "Profesorado de Educación Inicial" },
+            new Carrera { Id = 5, Nombre = "Profesorado de Educ. Secundaria en Cs de la Administración" },
+            new Carrera { Id = 7, Nombre = "Profesorado de Educ. Secundaria en Economía" },
+            new Carrera { Id = 8, Nombre = "Profesorado de Educación Tecnológica" },
+            new Carrera { Id = 1, Nombre = "Técnico Superior en Desarrollo de Software" },
+            new Carrera { Id = 4, Nombre = "Técnico Superior en Enfermería" },
+            new Carrera { Id = 22, Nombre = "Tecnicatura Superior en Gestión de Energías Renovables" },
+            new Carrera { Id = 3, Nombre = "Técnico Superior en Gestión de las Organizaciones" },
+            new Carrera { Id = 2, Nombre = "Técnico Superior en Soporte de Infraestructura en Tecnologías de la Información" }
         );
         #endregion
 

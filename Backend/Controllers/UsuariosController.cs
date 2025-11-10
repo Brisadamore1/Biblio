@@ -141,7 +141,14 @@ namespace Backend.Controllers
             {
                 return Conflict("Ya existe un usuario con el mismo email o DNI");
             }
+            //Attach de carreras en un UsuarioCarrera
+            foreach (var usuarioCarrera in usuario.CarrerasInscriptas)
+            {
+                _context.TryAttach(usuarioCarrera.Carrera);
+            }
+
             _context.Usuarios.Add(usuario);
+
             try
             {
                 await _context.SaveChangesAsync();

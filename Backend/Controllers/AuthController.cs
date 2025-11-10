@@ -65,7 +65,7 @@ namespace Backend.Controllers
             {
                 var user = await firebaseAuthClient.CreateUserWithEmailAndPasswordAsync(register.Email, register.Password, register.Nombre);
                 await SendVerificationEmailAsync(user.User.GetIdTokenAsync().Result);
-                return Ok();
+                return Ok(user.User.GetIdTokenAsync().Result);
             }
             catch (FirebaseAuthException ex)
             {
@@ -81,6 +81,22 @@ namespace Backend.Controllers
             try
             {
                 await firebaseAuthClient.ResetEmailPasswordAsync(login.Username);
+                return Ok();
+            }
+            catch (FirebaseAuthException ex)
+            {
+                return BadRequest(new { message = ex.Reason.ToString() });
+            }
+        }
+
+        [HttpPost("deleteuser")]
+        public async Task<IActionResult> DeleteUser([FromBody] LoginDTO login)
+        {
+            try
+            {
+                var credentials = await firebaseAuthClient.SignInWithEmailAndPasswordAsync
+                    (login.Username, login.Password);
+                await firebaseAuthClient.User.DeleteAsync();
                 return Ok();
             }
             catch (FirebaseAuthException ex)

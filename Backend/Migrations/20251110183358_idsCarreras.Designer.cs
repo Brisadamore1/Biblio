@@ -4,6 +4,7 @@ using Backend.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(BiblioContext))]
-    partial class BiblioContextModelSnapshot : ModelSnapshot
+    [Migration("20251110183358_idsCarreras")]
+    partial class idsCarreras
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,55 +129,55 @@ namespace Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 6,
+                            Id = 1,
                             IsDeleted = false,
                             Nombre = "Profesorado de Educación Inicial"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 2,
                             IsDeleted = false,
                             Nombre = "Profesorado de Educ. Secundaria en Cs de la Administración"
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 3,
                             IsDeleted = false,
                             Nombre = "Profesorado de Educ. Secundaria en Economía"
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 4,
                             IsDeleted = false,
                             Nombre = "Profesorado de Educación Tecnológica"
                         },
                         new
                         {
-                            Id = 1,
+                            Id = 5,
                             IsDeleted = false,
                             Nombre = "Técnico Superior en Desarrollo de Software"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 6,
                             IsDeleted = false,
                             Nombre = "Técnico Superior en Enfermería"
                         },
                         new
                         {
-                            Id = 22,
+                            Id = 7,
                             IsDeleted = false,
                             Nombre = "Tecnicatura Superior en Gestión de Energías Renovables"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 8,
                             IsDeleted = false,
                             Nombre = "Técnico Superior en Gestión de las Organizaciones"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 9,
                             IsDeleted = false,
                             Nombre = "Técnico Superior en Soporte de Infraestructura en Tecnologías de la Información"
                         });
@@ -796,8 +799,8 @@ namespace Backend.Migrations
                         {
                             Id = 1,
                             EjemplarId = 2,
-                            FechaDevolucion = new DateTime(2025, 11, 24, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6834),
-                            FechaPrestamo = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6833),
+                            FechaDevolucion = new DateTime(2025, 11, 24, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2888),
+                            FechaPrestamo = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2887),
                             IsDeleted = false,
                             UsuarioId = 2
                         },
@@ -805,8 +808,8 @@ namespace Backend.Migrations
                         {
                             Id = 2,
                             EjemplarId = 3,
-                            FechaDevolucion = new DateTime(2025, 11, 24, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6843),
-                            FechaPrestamo = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6843),
+                            FechaDevolucion = new DateTime(2025, 11, 24, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2900),
+                            FechaPrestamo = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2900),
                             IsDeleted = false,
                             UsuarioId = 3
                         },
@@ -814,8 +817,8 @@ namespace Backend.Migrations
                         {
                             Id = 3,
                             EjemplarId = 4,
-                            FechaDevolucion = new DateTime(2025, 11, 24, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6846),
-                            FechaPrestamo = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6845),
+                            FechaDevolucion = new DateTime(2025, 11, 24, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2903),
+                            FechaPrestamo = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2902),
                             IsDeleted = false,
                             UsuarioId = 4
                         },
@@ -823,8 +826,8 @@ namespace Backend.Migrations
                         {
                             Id = 4,
                             EjemplarId = 5,
-                            FechaDevolucion = new DateTime(2025, 11, 24, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6848),
-                            FechaPrestamo = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6848),
+                            FechaDevolucion = new DateTime(2025, 11, 24, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2905),
+                            FechaPrestamo = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2905),
                             IsDeleted = false,
                             UsuarioId = 5
                         },
@@ -832,8 +835,8 @@ namespace Backend.Migrations
                         {
                             Id = 5,
                             EjemplarId = 1,
-                            FechaDevolucion = new DateTime(2025, 11, 24, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6851),
-                            FechaPrestamo = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6850),
+                            FechaDevolucion = new DateTime(2025, 11, 24, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2908),
+                            FechaPrestamo = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2907),
                             IsDeleted = false,
                             UsuarioId = 1
                         },
@@ -841,8 +844,8 @@ namespace Backend.Migrations
                         {
                             Id = 6,
                             EjemplarId = 1,
-                            FechaDevolucion = new DateTime(2025, 11, 24, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6853),
-                            FechaPrestamo = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6853),
+                            FechaDevolucion = new DateTime(2025, 11, 24, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2911),
+                            FechaPrestamo = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2910),
                             IsDeleted = false,
                             UsuarioId = 6
                         });
@@ -904,7 +907,7 @@ namespace Backend.Migrations
                             Dni = "12345678",
                             Domicilio = "Calle Falsa 123",
                             Email = "juanperez@gmail.com",
-                            FechaRegistracion = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6879),
+                            FechaRegistracion = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2947),
                             IsDeleted = false,
                             Nombre = "Juan Pérez",
                             Observacion = "",
@@ -918,7 +921,7 @@ namespace Backend.Migrations
                             Dni = "87654321",
                             Domicilio = "Avenida Siempre Viva 456",
                             Email = "mariagomez@gmail.com",
-                            FechaRegistracion = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6885),
+                            FechaRegistracion = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2958),
                             IsDeleted = false,
                             Nombre = "María Gómez",
                             Observacion = "",
@@ -932,7 +935,7 @@ namespace Backend.Migrations
                             Dni = "11223344",
                             Domicilio = "Boulevard Central 789",
                             Email = "carlosrodriguez@gmail.com",
-                            FechaRegistracion = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6887),
+                            FechaRegistracion = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2960),
                             IsDeleted = false,
                             Nombre = "Carlos Rodríguez",
                             Observacion = "",
@@ -946,7 +949,7 @@ namespace Backend.Migrations
                             Dni = "44332211",
                             Domicilio = "Plaza Mayor 101",
                             Email = "martinezana@gmail.com",
-                            FechaRegistracion = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6889),
+                            FechaRegistracion = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2961),
                             IsDeleted = false,
                             Nombre = "Ana Martínez",
                             Observacion = "",
@@ -960,7 +963,7 @@ namespace Backend.Migrations
                             Dni = "55667788",
                             Domicilio = "Calle del Sol 202",
                             Email = "luisfernandez@gmail.com",
-                            FechaRegistracion = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6890),
+                            FechaRegistracion = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2963),
                             IsDeleted = false,
                             Nombre = "Luis Fernández",
                             Observacion = "",
@@ -974,7 +977,7 @@ namespace Backend.Migrations
                             Dni = "99887766",
                             Domicilio = "Avenida de la Luna 303",
                             Email = "sofialopez@gmail.com",
-                            FechaRegistracion = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6892),
+                            FechaRegistracion = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2964),
                             IsDeleted = false,
                             Nombre = "Sofía López",
                             Observacion = "",
@@ -988,7 +991,7 @@ namespace Backend.Migrations
                             Dni = "66778899",
                             Domicilio = "Calle de las Flores 404",
                             Email = "miguelsanchez@gmail.com",
-                            FechaRegistracion = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6893),
+                            FechaRegistracion = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2966),
                             IsDeleted = false,
                             Nombre = "Miguel Sánchez",
                             Observacion = "",
@@ -1002,7 +1005,7 @@ namespace Backend.Migrations
                             Dni = "33445566",
                             Domicilio = "Avenida del Río 505",
                             Email = "ramirezlaura@gmail.com",
-                            FechaRegistracion = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6895),
+                            FechaRegistracion = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2968),
                             IsDeleted = false,
                             Nombre = "Laura Ramírez",
                             Observacion = "",
@@ -1016,7 +1019,7 @@ namespace Backend.Migrations
                             Dni = "22113344",
                             Domicilio = "Plaza de la Ciudad 606",
                             Email = "torresdiego@gmail.com",
-                            FechaRegistracion = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6897),
+                            FechaRegistracion = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2969),
                             IsDeleted = false,
                             Nombre = "Diego Torres",
                             Observacion = "",
@@ -1030,7 +1033,7 @@ namespace Backend.Migrations
                             Dni = "77889900",
                             Domicilio = "Calle del Mercado 707",
                             Email = "elenaruiz@gmail.com",
-                            FechaRegistracion = new DateTime(2025, 11, 10, 16, 34, 51, 399, DateTimeKind.Local).AddTicks(6898),
+                            FechaRegistracion = new DateTime(2025, 11, 10, 15, 33, 57, 247, DateTimeKind.Local).AddTicks(2971),
                             IsDeleted = false,
                             Nombre = "Elena Ruiz",
                             Observacion = "",
