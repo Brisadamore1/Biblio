@@ -93,7 +93,6 @@ namespace Service.Services
             {
                 var content = await response.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<List<T>>(content, _options);
-               
             }
             else
             {

@@ -7,6 +7,7 @@
 @inject IGenericService<Autor> AutorService
 @inject IGenericService<Genero> GeneroService
 @inject IGenericService<Editorial> EditorialService
+@inject IGeminiService GeminiService
 
 <div class="container mt-5">
     <div class="row">
@@ -306,10 +307,12 @@
         }
     }
 
-    private void PortadaSubida(string nombreArchivo)
- 
+    private async Task PortadaSubida(string nombreArchivo)
     {
         Libro.Portada = nombreArchivo;
+        var libro = await GeminiService.GetLibroFromPortada(nombreArchivo);
+        if (libro != null)
+            Libro = libro;
         StateHasChanged();
     }
 }

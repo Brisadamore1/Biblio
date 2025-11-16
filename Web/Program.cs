@@ -6,12 +6,12 @@ using Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//var configuration = new ConfigurationBuilder()
-//        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-//        .AddEnvironmentVariables()
-//        .Build();
+var configuration = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+        .AddEnvironmentVariables()
+        .Build();
 
-// Add services to the container.
+//Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
@@ -20,6 +20,7 @@ builder.Services.AddMemoryCache();
 // Auth service que usa el provider
 builder.Services.AddScoped<FirebaseAuthService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IGeminiService, GeminiService>();
 builder.Services.AddScoped<IInstitutoAppService, InstitutoAppService>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
